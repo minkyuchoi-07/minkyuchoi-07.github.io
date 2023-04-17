@@ -25,14 +25,6 @@
     </url>
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2020/04/02/boosting/</loc>
-        <lastmod>2023-04-17T02:26:43.040Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://minkyuchoi-07.github.io/2020/03/23/Naive%20Bayes%20from%20scratch/</loc>
         <lastmod>2023-04-17T02:26:43.040Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -41,7 +33,15 @@
     </url>
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2020/01/24/feature-engineering-101/</loc>
+        <loc>https://minkyuchoi-07.github.io/2020/04/02/boosting/</loc>
+        <lastmod>2023-04-17T02:26:43.040Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://minkyuchoi-07.github.io/2019/12/17/mlcrash02-keyterm/</loc>
         <lastmod>2023-04-17T02:26:43.039Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -57,7 +57,7 @@
     </url>
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2019/12/17/mlcrash02-keyterm/</loc>
+        <loc>https://minkyuchoi-07.github.io/2020/01/24/feature-engineering-101/</loc>
         <lastmod>2023-04-17T02:26:43.039Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -81,7 +81,7 @@
     </url>
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2019/07/30/output-analysis/</loc>
+        <loc>https://minkyuchoi-07.github.io/2019/07/23/input-analysis/</loc>
         <lastmod>2023-04-17T02:26:43.036Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -89,7 +89,7 @@
     </url>
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2019/07/23/input-analysis/</loc>
+        <loc>https://minkyuchoi-07.github.io/2019/07/30/output-analysis/</loc>
         <lastmod>2023-04-17T02:26:43.036Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

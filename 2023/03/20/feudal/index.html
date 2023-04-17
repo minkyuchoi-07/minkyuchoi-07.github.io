@@ -120,7 +120,7 @@
   });
 </script>
 
-<meta name="generator" content="Hexo 5.3.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 <body class="is-2-column">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
     <div class="container">
@@ -203,7 +203,7 @@
         
         <div class="content">
             <p>The paper introduces a hierarchical reinforcement learning framework called Feudal Networks (FuN) that enables agents to learn a hierarchy of temporal abstractions. The proposed model consists of a Manager and a Worker, with the Manager learning high-level policies and the Worker learning low-level policies. The approach is demonstrated to achieve state-of-the-art performance on a range of challenging tasks in the Atari domain.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><p>FeUda Network (FuN) is a hierarchincal reinforcement learning method inspired by the feudal reinforcement learning proposal of <a target="_blank" rel="external nofollow noopener noreferrer" href="https://dl.acm.org/doi/10.5555/2987061.2987095">Dayan and Hinton</a>. The need for hierarchical reinforcement learning arises because most of the State-Of-The-Art (SOTA) reinforcement learning algorithms are focused on task specifications and are lmited to low-level executions, which receive states and execute actions. They do not perform any high-level planning or goal selection based on state information. Hierarchical reinforcement learning overcomes this limitation by introducing higher-level policies or networks that plan and selects goals while lower-level policies execute actions accordingly.</p>
 <p>FuN employs two modules: the Manager and the Worker. The Manager operates at a lower temporal resolution, receiving states and setting abstract goals that are conveyed to and enacted by the Worker <a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/pdf/1703.01161.pdf">[1]</a>. In contrast, the Worker generates primitive actions by observing the environment at every tick. By decoupling the Manager and the Worker, FuN facilitates long timescale credit assignment and the emergence of sub-policies associated with different goals set by the Manager. This enables FuN to outperform strong baseline agents on tasks that require long-term credit assignment or memorization.</p>
