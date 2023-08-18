@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/img/me.jpg">
 <meta property="article:published_time" content="2023-04-02T21:07:40.000Z">
-<meta property="article:modified_time" content="2023-04-17T03:39:56.962Z">
+<meta property="article:modified_time" content="2023-08-18T19:11:02.417Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="English">
 <meta property="article:tag" content="Distill Series">
@@ -185,7 +185,7 @@
                 <time class="level-item has-text-grey" datetime="2023-04-02T21:07:40.000Z">2023-04-02</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/blog-post/">Blog Post</a>
+                <a class="has-link-grey -link" href="/categories/distill-series/">Distill Series</a>
                 </div>
                 
                 
@@ -256,8 +256,11 @@
 <p><strong>Convergence to Optimal Policies:</strong> The recursive nature of the Bellman equations ensures that algorithms based on them can find optimal policies, provided certain conditions are met (like sufficient exploration). This guarantee of optimality is an attractive feature for solving complex decision-making problems. </p>
 <p><strong>Markov Decision Processes:</strong> Bellman equations enable the modeling of RL problems as Markov Decision Processes (MDPs), where the optimal decision-making process depends only on the current state and not the history. This simplificiation allows for efficient computation and generalization across a wide range or problems. </p>
 <p>The value function can be broken down into the immediate reward combined with the discounted future values.<br>$$<br>\begin{flalign<em>}<br>v(s) &amp; = \mathbb{E}[G_t|S_t=s] \<br>          &amp; = \mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+…|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma(R_{t+2}+\gamma R_{t+3}+…)|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma G_{t+1}|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma V(S_{t+1})|S_t=s] \<br>\end{flalign</em>}<br>$$</p>
-<p>$$<br>\begin{flalign<em>}<br>Q(s,a) &amp; =\mathbb{E}[R_{t+1}+\gamma V(S_{t+1})|S_t=s, A_t=a] \<br>&amp; = \mathbb{E}[R_{t+1}+\gamma \mathbb{E}<em>{a \backsim \pi}Q(S</em>{t+1}, a) | S_t=s, A_t = a]<br>\end{flalign</em>}<br>$$<br>The above recursive update process can be further separated into equations based on both state-value and action-value functions. As we progress through future action steps, we alternately extend $V$ and $Q$ by adhearing to the policy $\pi$.</p>
-<h1 id="Meta-Reinforcement-Learning"><a href="#Meta-Reinforcement-Learning" class="headerlink" title="Meta Reinforcement Learning"></a>Meta Reinforcement Learning</h1><p>A robust meta-learning model should effectively generalize to novel tasks or environments, even those it hasn’t encountered during training. Minimal adaptation should occur during testing with limited exposure. Ideally, the model should self-adjust its internal hidden states to learn without requiring explicit fine-tuning (no gradient backpropagation on trainable variables).</p>
+<p>$$<br>\begin{flalign<em>}<br>Q(s,a) &amp; =\mathbb{E}[R_{t+1}+\gamma V(S_{t+1})|S_t=s, A_t=a] \<br>&amp; = \mathbb{E}[R_{t+1}+\gamma \mathbb{E}<em>{a \backsim \pi}Q(S</em>{t+1}, a) | S_t=s, A_t = a]<br>\end{flalign</em>}<br>$$<br>The above recursive update process can be further separated into equations based on both state-value and action-value functions. As we progress through future action steps, we alternately extend $V$ and $Q$ by adhearing to the policy  $\pi$</p>
+<h1 id="Meta-Reinforcement-Learning"><a href="#Meta-Reinforcement-Learning" class="headerlink" title="Meta Reinforcement Learning"></a>Meta Reinforcement Learning</h1><p>A robust meta-learning model should effectively generalize to novel tasks or environments, even those it hasn’t encountered during training. Minimal adaptation should occur during testing with limited exposure. Ideally, the model should self-adjust its internal hidden states to learn without requiring explicit fine-tuning (no gradient backpropagation on trainable variables). </p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://lilianweng.github.io/posts/2018-04-08-policy-gradient/">https://lilianweng.github.io/posts/2018-04-08-policy-gradient/</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://towardsdatascience.com/policy-gradients-in-reinforcement-learning-explained-ecec7df94245">https://towardsdatascience.com/policy-gradients-in-reinforcement-learning-explained-ecec7df94245</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://towardsdatascience.com/proximal-policy-optimization-ppo-explained-abed1952457b">https://towardsdatascience.com/proximal-policy-optimization-ppo-explained-abed1952457b</a></p>
 
         </div>
         
@@ -287,7 +290,13 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-item card to-home">
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2023/08/18/distill-neuro-symbolic-ai/">
+                <i class="fas fa-chevron-left"></i> Distill Neuro-Symbolic AI
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
@@ -347,7 +356,11 @@
         <a class="is-flex" href="#Meta-Reinforcement-Learning">
         <span class="has-mr-6">2</span>
         <span>Meta Reinforcement Learning</span>
-        </a></li></ul>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#References">
+        <span class="has-mr-6">2.1</span>
+        <span>References</span>
+        </a></li></ul></li></ul>
         </div>
     </div>
 </div>
@@ -367,12 +380,20 @@
                 <span class="level-item">Blog Post</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">2</span>
+                <span class="level-item tag">1</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/devsecops/" data-link-name="category">
             <span class="level-start">
                 <span class="level-item">DevSecOps</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/distill-series/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">Distill Series</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">2</span>
