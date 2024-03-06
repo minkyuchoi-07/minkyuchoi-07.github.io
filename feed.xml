@@ -3,13 +3,37 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Minkyu Choi&#39;s Personal Blog</title>
+    <title>Minkyu Choi&#39;s Personal Webpage</title>
     <link>https://minkyuchoi-07.github.io/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     
-    <description>This is a personal blog</description>
-    <pubDate>Fri, 18 Aug 2023 19:22:36 GMT</pubDate>
+    <description>This is a personal Webpage</description>
+    <pubDate>Wed, 06 Mar 2024 23:35:02 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>project-ph</title>
+      <link>https://minkyuchoi-07.github.io/2024/03/07/project-ph/</link>
+      <guid>https://minkyuchoi-07.github.io/2024/03/07/project-ph/</guid>
+      <pubDate>Thu, 07 Mar 2024 03:41:03 GMT</pubDate>
+      <description>
+      
+      </description>
+      
+      <comments>https://minkyuchoi-07.github.io/2024/03/07/project-ph/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>research-PH</title>
+      <link>https://minkyuchoi-07.github.io/2024/03/07/research-ph/</link>
+      <guid>https://minkyuchoi-07.github.io/2024/03/07/research-ph/</guid>
+      <pubDate>Thu, 07 Mar 2024 03:40:49 GMT</pubDate>
+      <description>
+      
+      </description>
+      
+      <comments>https://minkyuchoi-07.github.io/2024/03/07/research-ph/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>Distill Neuro-Symbolic AI</title>
