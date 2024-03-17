@@ -8,31 +8,39 @@
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
     
     <description>This is a personal Webpage</description>
-    <pubDate>Wed, 06 Mar 2024 23:35:02 GMT</pubDate>
+    <pubDate>Sun, 17 Mar 2024 03:30:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>project-ph</title>
-      <link>https://minkyuchoi-07.github.io/2024/03/07/project-ph/</link>
-      <guid>https://minkyuchoi-07.github.io/2024/03/07/project-ph/</guid>
-      <pubDate>Thu, 07 Mar 2024 03:41:03 GMT</pubDate>
+      <title>Neuro Symbolic Video Search</title>
+      <link>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</link>
+      <guid>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</guid>
+      <pubDate>Sat, 16 Mar 2024 23:15:50 GMT</pubDate>
       <description>
+      
+        &lt;p&gt;The surge in video data necessitates advanced frame extraction tools. Foundation models like VideoLLaMA and ViCLIP falter in long-term reasoning, conflating frame perception with temporal analysis. We propose separating semantic understanding, using vision-language models for individual frames, from temporal reasoning, employing state machines and temporal logic. This approach significantly enhances complex event identification, improving F1 scores by 9-15% on self-driving datasets like Waymo and NuScenes compared to GPT4-based reasoning, showcasing the importance of decoupling these processes for effective scene identification.&lt;/p&gt;
       
       </description>
       
-      <comments>https://minkyuchoi-07.github.io/2024/03/07/project-ph/#disqus_thread</comments>
+      <content:encoded><![CDATA[<p>The surge in video data necessitates advanced frame extraction tools. Foundation models like VideoLLaMA and ViCLIP falter in long-term reasoning, conflating frame perception with temporal analysis. We propose separating semantic understanding, using vision-language models for individual frames, from temporal reasoning, employing state machines and temporal logic. This approach significantly enhances complex event identification, improving F1 scores by 9-15% on self-driving datasets like Waymo and NuScenes compared to GPT4-based reasoning, showcasing the importance of decoupling these processes for effective scene identification.</p><span id="more"></span>]]></content:encoded>
+      
+      <comments>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/#disqus_thread</comments>
     </item>
     
     <item>
-      <title>research-PH</title>
-      <link>https://minkyuchoi-07.github.io/2024/03/07/research-ph/</link>
-      <guid>https://minkyuchoi-07.github.io/2024/03/07/research-ph/</guid>
-      <pubDate>Thu, 07 Mar 2024 03:40:49 GMT</pubDate>
+      <title>Diffusion Based Adaptive Video Compression</title>
+      <link>https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/</link>
+      <guid>https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/</guid>
+      <pubDate>Sat, 16 Mar 2024 23:15:50 GMT</pubDate>
       <description>
+      
+        &lt;p&gt;Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playback, this method ensures high fidelity with minimal data. The process is adaptive, balancing detail retention and compression ratio, and can be conditioned on lightweight information like text descriptions or edge maps for improved results.&lt;/p&gt;
       
       </description>
       
-      <comments>https://minkyuchoi-07.github.io/2024/03/07/research-ph/#disqus_thread</comments>
+      <content:encoded><![CDATA[<p>Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playback, this method ensures high fidelity with minimal data. The process is adaptive, balancing detail retention and compression ratio, and can be conditioned on lightweight information like text descriptions or edge maps for improved results.</p><span id="more"></span>]]></content:encoded>
+      
+      <comments>https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/#disqus_thread</comments>
     </item>
     
     <item>
