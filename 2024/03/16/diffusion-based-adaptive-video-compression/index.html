@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png">
 <meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
-<meta property="article:modified_time" content="2024-04-04T00:21:15.729Z">
+<meta property="article:modified_time" content="2024-04-04T02:07:33.521Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
@@ -217,23 +217,44 @@
 <li><strong>Reverse Process (Denoising):</strong> <span style="color: red;">We learn to reverse the noise addition process.</span> If we do this correctly we can start with noise and apply the reverse process to generate new data sample that appear as if they were drawn from the target data distribution.</li>
 </ol>
 <h3 id="Algorithm-with-code"><a href="#Algorithm-with-code" class="headerlink" title="Algorithm with code"></a>Algorithm with code</h3><p>The process is mathematically decribed using Markov chains with Gaussian transitions. </p>
-<ol>
-<li><p><strong>Forward Transition Kernel:</strong></p>
-<ol>
-<li>$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t}x_{t-1}, \beta_t \mathbf{I})$</li>
-<li>At each time step $t$, a Gaussian noise is added to the data. $\beta_t$​ is a variance schedule that is chosen beforehand and determines  <span style="color: red;">how much noise to add at each step.</span></li>
-</ol>
+<h4 id="Forward-Transition-Kernel"><a href="#Forward-Transition-Kernel" class="headerlink" title="Forward Transition Kernel:"></a><strong>Forward Transition Kernel:</strong></h4><ol>
+<li><p>$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t}x_{t-1}, \beta_t \mathbf{I})$</p>
+</li>
+<li><p>At each time step $t$, a Gaussian noise is added to the data. $\beta_t$​​ is a variance schedule that is chosen beforehand and determines  <span style="color: red;">how much noise to add at each step.</span></p>
+</li>
+<li><p>Note that we take a square of $\beta$ to scale down $x_{t-1}$ so that after adding noise, the total variance remains 1. It scales down the previous difussed image to make room for the noise and then adding Gaussian noise with just the right variance to maintain the overall variance of the process.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">forward_diffusion</span>(<span class="hljs-params">x_0, T</span>):</span><br><span class="line">    x_t = x_0</span><br><span class="line">    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, T+<span class="hljs-number">1</span>):</span><br><span class="line">        beta_t = beta[t-<span class="hljs-number">1</span>]</span><br><span class="line">        x_t = np.sqrt(<span class="hljs-number">1.</span> - beta_t) * x_t + np.sqrt(beta_t) * np.random.normal(size=x_0.shape)</span><br><span class="line">    <span class="hljs-keyword">return</span> x_t</span><br></pre></td></tr></table></figure>
+
 </li>
-<li><p><strong>Accumulated Kernel:</strong></p>
+</ol>
+<h4 id="Accumulated-Kernel"><a href="#Accumulated-Kernel" class="headerlink" title="Accumulated Kernel:"></a><strong>Accumulated Kernel:</strong></h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 20vh;">
+  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/accumulated_kernel_draw.png" width="250" height="100" alt title style="margin: auto;">
+</div>
+
 <ol>
-<li>This describes how to sample $x_t$ directly from $x_0$ without going through all intermidate steps.</li>
-<li>$q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}x_0, (1 - \bar{\alpha}_t)$</li>
-<li><img src="/2024/03/16/diffusion-based-adaptive-video-compression/eq_3_1.png" width="250" height="100" alt title> </li>
-<li>$\bar{\alpha}_t$ is the accumulated product of (1-$\beta_s$) from time 1 to $t$ and represents <strong>the overall scale of the original data</strong> present in $x_t$. </li>
-</ol>
+<li><p>This describes how to sample $x_t$ directly from $x_0$ without going through all intermidate steps.</p>
+</li>
+<li><p>$q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}x_0, (1 - \bar{\alpha}_t)$​</p>
+</li>
+<li><img src="/2024/03/16/diffusion-based-adaptive-video-compression/eq_3_1.png" width="250" height="100" alt title> 
+</li>
+<li><p>$\bar{\alpha}_t$ is the accumulated product of (1-$\beta_s$) from time 1 to $t$ and represents <strong>the overall scale of the original data</strong> present in $x_t$. </p>
 </li>
 </ol>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">sample_from_x0</span>(<span class="hljs-params">x_0, t, alpha_bar</span>):</span><br><span class="line">    alpha_t = alpha_bar[t-<span class="hljs-number">1</span>]</span><br><span class="line">    <span class="hljs-keyword">return</span> np.sqrt(alpha_t) * x_0 + np.sqrt(<span class="hljs-number">1.</span> - alpha_t) * np.random.normal(size=x_0.shape)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Reverse-Transition-Kernel-Reverse-Diffusion-Process"><a href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process" class="headerlink" title="Reverse Transition Kernel (Reverse Diffusion Process)"></a>Reverse Transition Kernel (Reverse Diffusion Process)</h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 20vh;">
+  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/reverse_kernel_draw.png" width="350" height="100" alt title style="margin: auto;">
+</div>
+
+<p>The Reverse Diffusion Process (RDP), used to generate new samples from a distribution by reversing the Forward Diffusion Process (FDP). The FDP gradually adds noise to the data, and the RDP aims to <strong>learn</strong> to reverse this noise addition to recreate the data from the noisy distribution.</p>
+<img src="/2024/03/16/diffusion-based-adaptive-video-compression/rdp_eq.png" width="600" height="100" alt title> 
+
+<p>$\tilde{\mu}_t$ is the mean of the reverse transition kernel at time $t$, which is a linear combination of the original data point $x_0$ and the current noisy data point $x_t$. </p>
+<p>The coefficient for $x_0$ determines how much of the original data point $x_0$ is retained in the reverse transition. As $t$ decreases, $\bar \alpha_{t-1}$ increases, and $1-\bar \alpha_{t-1}$ decreases, making the coefficient larger. This means that as we get closer to $t=0$, we are realying more on the original data point $x_0$ to reconstruct $x_{x-1}$.</p>
+<p>The coefficient for $x_t$ determine the contribution of the current noisy data point $x_t$ to the reverse transition. As $t$ decreases, $\alpha_t$ and $\bar \alpha_{t-1}$ is decreases, making the coefficient smaller.</p>
+<p>We want to remove just the right amount of noise (represented by $x_t$) while restoring the right amount of signal (represented by $x_0$). Initially, $x_t$ is mostly noisy, so its coefficient is relatively small, but as we reverse the diffusion process, $x_t$ gradually becomes less noisy, and its influence increases. </p>
+<p>In the reverse diffusion process, we are effectively using these coefficient to “interploate” between the noise and the data at each step. Initially, the process is noise-dominated, and we have only small “hint” of the data. But as we step back through time, the data’s contribution becomes larger and the noise’s contribution becomes smaller, ultimately allowing us to reconstruct a sample that resembles the original data distribution.</p>
 
         </div>
         
@@ -254,21 +275,15 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start card">
-            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2024/03/16/neuro-symbolic-video-search/">
-                <i class="fas fa-chevron-left"></i> Neuro Symbolic Video Search
-            </a>
-        </div>
-        
-        <div class="with-prev card to-home">
+        <div class="level-item card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
         </div>
         
         <div class="level-end card">
-            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2023/08/18/distill-neuro-symbolic-ai/">
-                Distill Neuro-Symbolic AI <i class="fas fa-chevron-right"></i>
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/03/16/neuro-symbolic-video-search/">
+                Neuro Symbolic Video Search <i class="fas fa-chevron-right"></i>
             </a>
         </div>
         
@@ -300,7 +315,19 @@
         <a class="is-flex" href="#Algorithm-with-code">
         <span class="has-mr-6">1.1</span>
         <span>Algorithm with code</span>
-        </a></li></ul></li></ul>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Forward-Transition-Kernel">
+        <span class="has-mr-6">1.1.1</span>
+        <span>Forward Transition Kernel:</span>
+        </a></li><li>
+        <a class="is-flex" href="#Accumulated-Kernel">
+        <span class="has-mr-6">1.1.2</span>
+        <span>Accumulated Kernel:</span>
+        </a></li><li>
+        <a class="is-flex" href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process">
+        <span class="has-mr-6">1.1.3</span>
+        <span>Reverse Transition Kernel (Reverse Diffusion Process)</span>
+        </a></li></ul></li></ul></li></ul>
         </div>
     </div>
 </div>
