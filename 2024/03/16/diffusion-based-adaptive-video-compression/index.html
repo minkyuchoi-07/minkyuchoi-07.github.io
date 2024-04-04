@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png">
 <meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
-<meta property="article:modified_time" content="2024-04-04T02:36:45.060Z">
+<meta property="article:modified_time" content="2024-04-04T02:41:52.032Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
@@ -227,10 +227,9 @@
 
 </li>
 </ol>
-<h4 id="Accumulated-Kernel"><a href="#Accumulated-Kernel" class="headerlink" title="Accumulated Kernel:"></a><strong>Accumulated Kernel:</strong></h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 20vh;">
-  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/accumulated_kernel_draw.png" width="150" height="100" alt title style="margin: auto;">
+<h4 id="Accumulated-Kernel"><a href="#Accumulated-Kernel" class="headerlink" title="Accumulated Kernel:"></a><strong>Accumulated Kernel:</strong></h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh;">
+  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/accumulated_kernel_draw.png" alt title style="max-width: 100%; max-height: 100%; height: auto;">
 </div>
-
 
 <ol>
 <li><p>This describes how to sample $x_t$ directly from $x_0$ without going through all intermidate steps.</p>
@@ -245,7 +244,7 @@
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">sample_from_x0</span>(<span class="hljs-params">x_0, t, alpha_bar</span>):</span><br><span class="line">    alpha_t = alpha_bar[t-<span class="hljs-number">1</span>]</span><br><span class="line">    <span class="hljs-keyword">return</span> np.sqrt(alpha_t) * x_0 + np.sqrt(<span class="hljs-number">1.</span> - alpha_t) * np.random.normal(size=x_0.shape)</span><br></pre></td></tr></table></figure>
 
 <h4 id="Reverse-Transition-Kernel-Reverse-Diffusion-Process"><a href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process" class="headerlink" title="Reverse Transition Kernel (Reverse Diffusion Process)"></a>Reverse Transition Kernel (Reverse Diffusion Process)</h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; height: 20vh;">
-  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/reverse_kernel_draw.png" width="150" height="100" alt title style="margin: auto;">
+  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/reverse_kernel_draw.png" width="350" height="100" alt title style="margin: auto;">
 </div>
 
 <p>The Reverse Diffusion Process (RDP), used to generate new samples from a distribution by reversing the Forward Diffusion Process (FDP). The FDP gradually adds noise to the data, and the RDP aims to <strong>learn</strong> to reverse this noise addition to recreate the data from the noisy distribution.</p>
