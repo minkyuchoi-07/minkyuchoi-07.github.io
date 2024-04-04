@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png">
 <meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
-<meta property="article:modified_time" content="2024-04-04T02:45:17.578Z">
+<meta property="article:modified_time" content="2024-04-04T03:57:56.220Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
@@ -257,7 +257,38 @@
 <p>The coefficient for $x_t$ determine the contribution of the current noisy data point $x_t$ to the reverse transition. As $t$ decreases, $\alpha_t$ and $\bar \alpha_{t-1}$ is decreases, making the coefficient smaller.</p>
 <p>We want to remove just the right amount of noise (represented by $x_t$) while restoring the right amount of signal (represented by $x_0$). Initially, $x_t$ is mostly noisy, so its coefficient is relatively small, but as we reverse the diffusion process, $x_t$ gradually becomes less noisy, and its influence increases. </p>
 <p>In the reverse diffusion process, we are effectively using these coefficient to “interploate” between the noise and the data at each step. Initially, the process is noise-dominated, and we have only small “hint” of the data. But as we step back through time, the data’s contribution becomes larger and the noise’s contribution becomes smaller, ultimately allowing us to reconstruct a sample that resembles the original data distribution.</p>
-<p>It’s important to note that in practice, $\tilde \mu$ would be predicted by a neural network trained to estimate the denoising step.</p>
+<p>It’s important to note that in practice, $\tilde \mu$​ would be predicted by a neural network trained to estimate the denoising step.</p>
+<h4 id="With-a-Neural-Network"><a href="#With-a-Neural-Network" class="headerlink" title="With a Neural Network"></a>With a Neural Network</h4><p>In a neural network-based approach to reversing the diffusion process to generate data, we focus on estimating the original data $x_0$ from its noisy version $x_t$ without having direct knowledge of $x_0$. This is a critical aspect of the reverse process in diffusion-based generative models.</p>
+<h5 id="Estimation-of-x-0"><a href="#Estimation-of-x-0" class="headerlink" title="Estimation of  $x_0$:"></a>Estimation of  $x_0$:</h5><ul>
+<li>Since $x_0$ is unknown during generation, we estimate it from $x_t$, the noisy data at a current timestep.</li>
+<li>The estimation equation $ \hat{x}_0 = \frac{(x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon)}{\sqrt{\bar{\alpha}_t}} $ rearranges the forward process (Equation 2).</li>
+<li>The noise $ \epsilon $ added at each diffusion step is unknown; thus, we utilize a neural network parameterized by $ \theta(x_t | t) $ to estimate this noise.</li>
+</ul>
+<h5 id="Neural-Network-and-Loss-Function"><a href="#Neural-Network-and-Loss-Function" class="headerlink" title="Neural Network and Loss Function:"></a>Neural Network and Loss Function:</h5><ul>
+<li>The neural network is defined by its parameters $ \theta $, which are refined during training.</li>
+<li>The loss function $ L(\theta) $ aims to minimize the discrepancy between the estimated noise $ \epsilon $ and the noise predicted by the network $ \theta(x_t | t) $.</li>
+<li>By minimizing this loss, the network is trained to predict the noise added to $ x_0 $ to produce $ x_t $.</li>
+</ul>
+<h4 id="Score-Function"><a href="#Score-Function" class="headerlink" title="Score Function:"></a>Score Function:</h4><ul>
+<li>Estimating $ \epsilon $ is tantamount to calculating the scaled gradient of the log density of $ x_t $ with respect to itself, scaled by $ \frac{1}{1 - \bar{\alpha}_t} $.</li>
+<li>This score function denotes the most significant increase direction in the log probability density of the noisy data.</li>
+<li>Simply put, it indicates the direction from the noisy data $ x_t $ towards the original data $ x_0 $.</li>
+</ul>
+<p>To delve deeper into the neural network training and the role of the loss function:</p>
+<ul>
+<li>The neural network $ \theta(x_t | t) $ is time-conditional, altering its behavior based on the timestep $ t $, which allows for the accommodation of the varying levels of noise in $ x_t $.</li>
+<li>The loss function $ L(\theta) $ is explicitly designed to make $ \theta(x_t | t) $ an effective estimator of the noise $ \epsilon $ that was incorporated into $ x_0 $ at the time $ t $ during the forward process. Training the network to minimize this loss effectively instructs it on reversing the diffusion process.</li>
+<li>The score function $ \nabla_{x_t} \log q_t(x_t | x_0) $ allows the network’s output to be directly associated with the data’s probability density gradients. This gradient, also known as the score, informs us on adjusting $ x_t $ to enhance its likelihood under the data distribution, which is fundamental to generating representative samples of the original data distribution.</li>
+</ul>
+<p>In practice, this methodology enables generative models to create samples from intricate distributions by methodically refining noise into structured data. The neural network is trained to counteract the noise introduced in the diffusion process, thus efficiently generating new data samples from the target distribution.</p>
+<p>The entire training process includes the following iterative steps:</p>
+<ul>
+<li>Begin with a sample $ x_0 $ from the true data distribution.</li>
+<li>Introduce noise to generate $ x_t $ following the forward diffusion process.</li>
+<li>Employ the neural network to estimate the noise $ \epsilon $.</li>
+<li>Adjust the neural network parameters $ \theta $ to minimize the disparity between the estimated and the actual noise, in adherence to the loss function.</li>
+</ul>
+<p>Upon successful training, the neural network is capable of generating new data samples by initiating from noise and applying the learned reverse process.</p>
 
         </div>
         
@@ -278,15 +309,21 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-item card to-home">
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2024/03/16/neuro-symbolic-video-search/">
+                <i class="fas fa-chevron-left"></i> Neuro Symbolic Video Search
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
         </div>
         
         <div class="level-end card">
-            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/03/16/neuro-symbolic-video-search/">
-                Neuro Symbolic Video Search <i class="fas fa-chevron-right"></i>
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2023/08/18/distill-neuro-symbolic-ai/">
+                Distill Neuro-Symbolic AI <i class="fas fa-chevron-right"></i>
             </a>
         </div>
         
@@ -330,6 +367,14 @@
         <a class="is-flex" href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process">
         <span class="has-mr-6">1.1.3</span>
         <span>Reverse Transition Kernel (Reverse Diffusion Process)</span>
+        </a></li><li>
+        <a class="is-flex" href="#With-a-Neural-Network">
+        <span class="has-mr-6">1.1.4</span>
+        <span>With a Neural Network</span>
+        </a></li><li>
+        <a class="is-flex" href="#Score-Function">
+        <span class="has-mr-6">1.1.5</span>
+        <span>Score Function:</span>
         </a></li></ul></li></ul></li></ul>
         </div>
     </div>

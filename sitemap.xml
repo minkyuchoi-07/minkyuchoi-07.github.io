@@ -137,7 +137,14 @@
 
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/simulation/</loc>
+    <lastmod>2024-04-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/statistics/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -151,14 +158,7 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/simulation/</loc>
-    <lastmod>2024-04-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/statistics/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -230,14 +230,14 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-04-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
