@@ -9,22 +9,22 @@
 
 
     <url>
+        <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
+        <lastmod>2024-07-15T01:23:07.782Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
-        <lastmod>2024-04-15T04:39:25.162Z</lastmod>
+        <lastmod>2024-07-15T01:13:39.586Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
-        <lastmod>2024-03-17T03:30:31.191Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
-        <lastmod>2024-03-17T03:30:16.506Z</lastmod>
+        <lastmod>2024-07-15T00:28:53.255Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

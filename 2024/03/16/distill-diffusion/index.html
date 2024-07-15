@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>Diffusion Based Adaptive Video Compression - Minkyu Choi&#39;s Personal Webpage</title>
+<title>Distill Diffusion - Minkyu Choi&#39;s Personal Webpage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/">
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/">
 
 
-    <meta name="description" content="Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playba">
+    <meta name="description" content="Distill series – diffusion model.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Diffusion Based Adaptive Video Compression">
-<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/index.html">
+<meta property="og:title" content="Distill Diffusion">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/index.html">
 <meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
-<meta property="og:description" content="Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playba">
+<meta property="og:description" content="Distill series – diffusion model.">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/thumnail.png">
 <meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
-<meta property="article:modified_time" content="2024-04-15T04:39:25.162Z">
+<meta property="article:modified_time" content="2024-07-15T00:28:53.255Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/thumnail.png">
 
 
 
@@ -29,10 +29,10 @@
     <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
 
 
-<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/">
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/">
 
 
-<link rel="alternative" href="/feed.xml" title="Diffusion Based Adaptive Video Compression" type="application/xml">
+<link rel="alternative" href="/feed.xml" title="Distill Diffusion" type="application/xml">
 
 
 
@@ -125,7 +125,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
             
-                <img src="/img/logo.png" alt="Diffusion Based Adaptive Video Compression" height="28">
+                <img src="/img/logo.png" alt="Distill Diffusion" height="28">
             
             </a>
         </div>
@@ -178,7 +178,7 @@
     
     <div class="card-image">
         <span class="image is-7by1">
-            <img class="thumbnail" src="/2024/03/16/diffusion-based-adaptive-video-compression/thumnail.png" alt="Diffusion Based Adaptive Video Compression">
+            <img class="thumbnail" src="/2024/03/16/distill-diffusion/thumnail.png" alt="Distill Diffusion">
         </span>
     </div>
     
@@ -189,7 +189,7 @@
                 <time class="level-item has-text-grey" datetime="2024-03-16T23:15:50.000Z">2024-03-16</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/2-project/">2. Project</a>
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
                 </div>
                 
                 
@@ -199,14 +199,14 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
             
-                Diffusion Based Adaptive Video Compression
+                Distill Diffusion
             
         </h1>
         
         <hr>
         
         <div class="content">
-            <p>Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playback, this method ensures high fidelity with minimal data. The process is adaptive, balancing detail retention and compression ratio, and can be conditioned on lightweight information like text descriptions or edge maps for improved results.</p>
+            <p>Distill series – diffusion model.</p>
 <span id="more"></span>
 
 <h2 id="Conditional-Diffusion-for-Video"><a href="#Conditional-Diffusion-for-Video" class="headerlink" title="Conditional Diffusion for Video"></a>Conditional Diffusion for Video</h2><p>Let’s test first learn about a diffusion model. A diffusion model generates data by reversing a diffusion process that gradually adds noise to the data unitl it becomes pure noise. </p>
@@ -228,7 +228,7 @@
 </li>
 </ol>
 <h4 id="Accumulated-Kernel"><a href="#Accumulated-Kernel" class="headerlink" title="Accumulated Kernel:"></a><strong>Accumulated Kernel:</strong></h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh;">
-  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/accumulated_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
+  <img src="/2024/03/16/distill-diffusion/accumulated_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
 </div>
 
 
@@ -237,7 +237,7 @@
 </li>
 <li><p>$q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}x_0, (1 - \bar{\alpha}_t)$​</p>
 </li>
-<li><img src="/2024/03/16/diffusion-based-adaptive-video-compression/eq_3_1.png" width="250" height="100" alt title> 
+<li><img src="/2024/03/16/distill-diffusion/eq_3_1.png" width="250" height="100" alt title> 
 </li>
 <li><p>$\bar{\alpha}_t$ is the accumulated product of (1-$\beta_s$) from time 1 to $t$ and represents <strong>the overall scale of the original data</strong> present in $x_t$. </p>
 </li>
@@ -245,11 +245,11 @@
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">sample_from_x0</span>(<span class="hljs-params">x_0, t, alpha_bar</span>):</span><br><span class="line">    alpha_t = alpha_bar[t-<span class="hljs-number">1</span>]</span><br><span class="line">    <span class="hljs-keyword">return</span> np.sqrt(alpha_t) * x_0 + np.sqrt(<span class="hljs-number">1.</span> - alpha_t) * np.random.normal(size=x_0.shape)</span><br></pre></td></tr></table></figure>
 
 <h4 id="Reverse-Transition-Kernel-Reverse-Diffusion-Process"><a href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process" class="headerlink" title="Reverse Transition Kernel (Reverse Diffusion Process)"></a>Reverse Transition Kernel (Reverse Diffusion Process)</h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh;">
-  <img src="/2024/03/16/diffusion-based-adaptive-video-compression/reverse_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
+  <img src="/2024/03/16/distill-diffusion/reverse_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
 </div>
 
 <p>The Reverse Diffusion Process (RDP), used to generate new samples from a distribution by reversing the Forward Diffusion Process (FDP). The FDP gradually adds noise to the data, and the RDP aims to <strong>learn</strong> to reverse this noise addition to recreate the data from the noisy distribution.</p>
-<img src="/2024/03/16/diffusion-based-adaptive-video-compression/rdp_eq.png" width="600" height="100" alt title> 
+<img src="/2024/03/16/distill-diffusion/rdp_eq.png" width="600" height="100" alt title> 
 
 <p>$\tilde{\mu}_t$ is the mean of the reverse transition kernel at time $t$, which is a linear combination of the original data point $x_0$ and the current noisy data point $x_t$. </p>
 <p>The $\tilde \beta_t$ term is the variance of the Gaussian distribution for the reverse step, which changes at each step, reflecting how the uncertainty decreases as we approach the original data distribution.</p>
@@ -310,15 +310,21 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-item card to-home">
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2024/03/16/neuro-symbolic-video-search/">
+                <i class="fas fa-chevron-left"></i> Neuro Symbolic Video Search with Temporal Logic
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
             <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
                 <i class="fas fa-home"></i> Home
             </a>
         </div>
         
         <div class="level-end card">
-            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/03/16/neuro-symbolic-video-search/">
-                Neuro Symbolic Video Search <i class="fas fa-chevron-right"></i>
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2023/08/18/distill-neuro-symbolic-ai/">
+                Distill Neuro-Symbolic AI <i class="fas fa-chevron-right"></i>
             </a>
         </div>
         
@@ -410,7 +416,7 @@
                 <span class="level-item">3. Blog Post</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">14</span>
+                <span class="level-item tag">15</span>
             </span>
         </a></li>
             </ul>
@@ -430,7 +436,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/img/logo.png" alt="Diffusion Based Adaptive Video Compression" height="28">
+                    <img src="/img/logo.png" alt="Distill Diffusion" height="28">
                 
                 </a>
                 <p class="is-size-7">

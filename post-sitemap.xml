@@ -9,8 +9,24 @@
 
 
     <url>
-        <loc>https://minkyuchoi-07.github.io/2024/03/16/diffusion-based-adaptive-video-compression/</loc>
-        <lastmod>2024-04-15T04:39:25.162Z</lastmod>
+        <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
+        <lastmod>2024-07-15T01:23:07.782Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/</loc>
+        <lastmod>2024-07-15T01:13:39.586Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/</loc>
+        <lastmod>2024-07-15T00:28:53.255Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -91,14 +107,6 @@
     <url>
         <loc>https://minkyuchoi-07.github.io/2019/07/19/random-variable/</loc>
         <lastmod>2024-03-17T03:30:21.859Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
-        <lastmod>2024-03-17T03:30:16.506Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
