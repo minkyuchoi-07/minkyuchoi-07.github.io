@@ -165,6 +165,13 @@
   </url>
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
+    <lastmod>2024-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -173,13 +180,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/security/</loc>
-    <lastmod>2024-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -230,6 +230,13 @@
 
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <lastmod>2024-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -238,13 +245,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
-    <lastmod>2024-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
