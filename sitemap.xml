@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
+    
+    <lastmod>2024-07-16</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/</loc>
     
     <lastmod>2024-07-16</lastmod>
@@ -17,13 +24,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/</loc>
-    
-    <lastmod>2024-07-16</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
     
     <lastmod>2024-07-16</lastmod>
     
@@ -172,21 +172,7 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://minkyuchoi-07.github.io/tags/english/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -201,6 +187,20 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/korean/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -242,6 +242,20 @@
   </url>
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/tags/computer-vision/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/formal-method/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/tags/generative-ai/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>daily</changefreq>
@@ -262,21 +276,14 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/computer-vision/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/formal-method/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
@@ -287,13 +294,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
-    <lastmod>2024-07-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-07-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
