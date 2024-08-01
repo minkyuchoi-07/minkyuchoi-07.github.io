@@ -186,6 +186,13 @@
   </url>
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
+    <lastmod>2024-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>daily</changefreq>
@@ -194,13 +201,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/security/</loc>
-    <lastmod>2024-08-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -249,13 +249,6 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/literature-review/</loc>
-    <lastmod>2024-08-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://minkyuchoi-07.github.io/tags/generative-ai/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>daily</changefreq>
@@ -278,6 +271,13 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/formal-method/</loc>
+    <lastmod>2024-08-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/literature-review/</loc>
     <lastmod>2024-08-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
