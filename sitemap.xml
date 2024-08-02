@@ -179,14 +179,14 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/english/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/linux/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/english/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -221,20 +221,6 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/artificial-intelligence/</loc>
-    <lastmod>2024-08-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/reinforcement-learning/</loc>
-    <lastmod>2024-08-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://minkyuchoi-07.github.io/tags/distill-series/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
@@ -249,7 +235,14 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/literature-review/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/artificial-intelligence/</loc>
+    <lastmod>2024-08-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/reinforcement-learning/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -283,14 +276,14 @@
     <priority>0.6</priority>
   </url>
   
-
-  
   <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <loc>https://minkyuchoi-07.github.io/tags/literature-review/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
+  
+
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
@@ -301,6 +294,13 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
+    <lastmod>2024-08-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-08-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
