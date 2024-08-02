@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>Minkyu Choi&#39;s Personal Webpage</title>
+<title>Curriculum Vitae (CV) - Minkyu Choi&#39;s Personal Webpage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="canonical" href="https://minkyuchoi-07.github.io/cv/">
 
 
-    <meta name="description" content="Download Full CV (PDF)">
+    <meta name="description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;   }    @media only screen and (max-width: 768px) {     .cv-pdf iframe {       width: 100%;       he">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:title" content="Curriculum Vitae (CV)">
 <meta property="og:url" content="https://minkyuchoi-07.github.io/cv/index.html">
 <meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
-<meta property="og:description" content="Download Full CV (PDF)">
+<meta property="og:description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;   }    @media only screen and (max-width: 768px) {     .cv-pdf iframe {       width: 100%;       he">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
-<meta property="article:published_time" content="2024-08-02T00:37:06.425Z">
-<meta property="article:modified_time" content="2024-08-02T00:37:06.425Z">
+<meta property="article:published_time" content="2024-08-02T03:20:08.000Z">
+<meta property="article:modified_time" content="2024-08-02T00:59:45.024Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
@@ -32,7 +32,7 @@
 <link rel="canonical" href="https://minkyuchoi-07.github.io/cv/">
 
 
-<link rel="alternative" href="/feed.xml" title type="application/xml">
+<link rel="alternative" href="/feed.xml" title="Curriculum Vitae (CV)" type="application/xml">
 
 
 
@@ -125,7 +125,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
             
-                <img src="/img/logo.png" alt height="28">
+                <img src="/img/logo.png" alt="Curriculum Vitae (CV)" height="28">
             
             </a>
         </div>
@@ -180,17 +180,39 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
             
-                
+                Curriculum Vitae (CV)
             
         </h1>
         
         <hr>
         
         <div class="content">
-            <!-- Use an iframe to display the PDF in full web view -->
-<iframe src="/assets/files/cv.pdf" width="100%" height="800px" style="border: none;"></iframe>
-<!-- You can remove the embed code to avoid embedding the PDF directly -->
-<!-- <embed src="/assets/files/cv.pdf" width="100%" height="800px" type="application/pdf"> -->
+            <style>
+  .cv-pdf iframe {
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    border: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .cv-pdf iframe {
+      width: 100%;
+      height: calc(100vh - 50px); /* Adjust height for mobile if needed */
+    }
+  }
+
+  @media only screen and (min-width: 769px) {
+    .cv-pdf iframe {
+      width: 75%; /* Adjust the width as needed for larger screens */
+      margin: 0 auto; /* Center the iframe */
+    }
+  }
+</style>
+
+<!-- Use an iframe to display the PDF in full web view -->
+<div class="cv-pdf">
+  <iframe src="/assets/files/cv.pdf" style="width: 100%; height: 800px; border: none;"></iframe>
+</div>
 
 <div class="cv-download">
   <a href="/assets/files/cv.pdf" class="button is-primary" download>
@@ -200,6 +222,7 @@
     <span>Download Full CV (PDF)</span>
   </a>
 </div>
+
         </div>
         
         
@@ -496,7 +519,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/img/logo.png" alt height="28">
+                    <img src="/img/logo.png" alt="Curriculum Vitae (CV)" height="28">
                 
                 </a>
                 <p class="is-size-7">
