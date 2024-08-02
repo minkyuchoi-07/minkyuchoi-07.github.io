@@ -8,16 +8,16 @@
 <link rel="canonical" href="https://minkyuchoi-07.github.io/cv/">
 
 
-    <meta name="description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;     overflow: auto; &#x2F;* Make iframe content scrollable *&#x2F;   }    @media only screen and (max-width:">
+    <meta name="description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;   }    @media only screen and (max-width: 768px) {     .cv-pdf iframe {       height: calc(100vh -">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Curriculum Vitae (CV)">
 <meta property="og:url" content="https://minkyuchoi-07.github.io/cv/index.html">
 <meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
-<meta property="og:description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;     overflow: auto; &#x2F;* Make iframe content scrollable *&#x2F;   }    @media only screen and (max-width:">
+<meta property="og:description" content=".cv-pdf iframe {     width: 100%;     height: 100vh; &#x2F;* Full viewport height *&#x2F;     border: none;   }    @media only screen and (max-width: 768px) {     .cv-pdf iframe {       height: calc(100vh -">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
 <meta property="article:published_time" content="2024-08-02T03:20:08.000Z">
-<meta property="article:modified_time" content="2024-08-02T01:06:33.814Z">
+<meta property="article:modified_time" content="2024-08-02T01:12:22.892Z">
 <meta property="article:author" content="Minkyu Choi">
 <meta property="article:tag" content="Artificial Intelligence">
 <meta name="twitter:card" content="summary">
@@ -192,7 +192,6 @@
     width: 100%;
     height: 100vh; /* Full viewport height */
     border: none;
-    overflow: auto; /* Make iframe content scrollable */
   }
 
   @media only screen and (max-width: 768px) {
@@ -203,8 +202,7 @@
 
   @media only screen and (min-width: 769px) {
     .cv-pdf iframe {
-      width: 75%; /* Adjust the width as needed for larger screens */
-      margin: 0 auto; /* Center the iframe */
+      width: 100%;
       height: 100vh; /* Full viewport height */
     }
   }
@@ -213,9 +211,9 @@
 <!-- Viewport meta tag for better mobile responsiveness -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Use an iframe to display the PDF in full web view -->
+<!-- Use an iframe to display the PDF in full web view with zoom settings -->
 <div class="cv-pdf">
-  <iframe src="/assets/files/cv.pdf" style="width: 100%; height: 100vh; border: none;"></iframe>
+  <iframe src="/assets/files/cv.pdf#zoom=100" style="width: 100%; height: 100vh; border: none;"></iframe>
 </div>
 
 <div class="cv-download">
