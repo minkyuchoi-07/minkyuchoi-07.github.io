@@ -200,6 +200,13 @@
   </url>
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
+    <lastmod>2024-11-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/tags/security/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
@@ -208,13 +215,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/korean/</loc>
-    <lastmod>2024-11-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
