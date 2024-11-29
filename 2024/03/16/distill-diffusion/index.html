@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Distill Diffusion - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/">
+
+
+    <meta name="description" content="Distill series – diffusion model.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Distill Diffusion">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Distill series – diffusion model.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.461Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Generative AI">
+<meta property="article:tag" content="Diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/distill-diffusion/">
+
+
+<link rel="alternative" href="/feed.xml" title="Distill Diffusion" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Distill Diffusion" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2024-03-16T23:15:50.000Z">2024-03-16</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Distill Diffusion
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>Distill series – diffusion model.</p>
+<span id="more"></span>
+
+<h2 id="Conditional-Diffusion-for-Video"><a href="#Conditional-Diffusion-for-Video" class="headerlink" title="Conditional Diffusion for Video"></a>Conditional Diffusion for Video</h2><p>Let’s test first learn about a diffusion model. A diffusion model generates data by reversing a diffusion process that gradually adds noise to the data unitl it becomes pure noise. </p>
+<p>The process is modeled in two phases: the foreard process and the reverse (or backward) process. </p>
+<p>Let $x_0 \in \mathbb{R}^d$ be a simple from the data distribution $p_{\text{data}}$. </p>
+<ol>
+<li><strong>Forward Process (Diffusion):</strong> This is where we start with data $x_0$​ from our desired distribution and add noise over several steps until we get to a point where our data is indistinguishable from noise. </li>
+<li><strong>Reverse Process (Denoising):</strong> <span style="color: red;">We learn to reverse the noise addition process.</span> If we do this correctly we can start with noise and apply the reverse process to generate new data sample that appear as if they were drawn from the target data distribution.</li>
+</ol>
+<h3 id="Algorithm-with-code"><a href="#Algorithm-with-code" class="headerlink" title="Algorithm with code"></a>Algorithm with code</h3><p>The process is mathematically decribed using Markov chains with Gaussian transitions. </p>
+<h4 id="Forward-Transition-Kernel"><a href="#Forward-Transition-Kernel" class="headerlink" title="Forward Transition Kernel:"></a><strong>Forward Transition Kernel:</strong></h4><ol>
+<li><p>$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t}x_{t-1}, \beta_t \mathbf{I})$</p>
+</li>
+<li><p>At each time step $t$, a Gaussian noise is added to the data. $\beta_t$​​ is a variance schedule that is chosen beforehand and determines  <span style="color: red;">how much noise to add at each step.</span></p>
+</li>
+<li><p>Note that we take a square of $\beta$ to scale down $x_{t-1}$ so that after adding noise, the total variance remains 1. It scales down the previous difussed image to make room for the noise and then adding Gaussian noise with just the right variance to maintain the overall variance of the process.</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">forward_diffusion</span>(<span class="hljs-params">x_0, T</span>):</span><br><span class="line">    x_t = x_0</span><br><span class="line">    <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, T+<span class="hljs-number">1</span>):</span><br><span class="line">        beta_t = beta[t-<span class="hljs-number">1</span>]</span><br><span class="line">        x_t = np.sqrt(<span class="hljs-number">1.</span> - beta_t) * x_t + np.sqrt(beta_t) * np.random.normal(size=x_0.shape)</span><br><span class="line">    <span class="hljs-keyword">return</span> x_t</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="Accumulated-Kernel"><a href="#Accumulated-Kernel" class="headerlink" title="Accumulated Kernel:"></a><strong>Accumulated Kernel:</strong></h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh;">
+  <img src="/2024/03/16/distill-diffusion/accumulated_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
+</div>
+
+
+<ol>
+<li><p>This describes how to sample $x_t$ directly from $x_0$ without going through all intermidate steps.</p>
+</li>
+<li><p>$q(x_t | x_0) = \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t}x_0, (1 - \bar{\alpha}_t)$​</p>
+</li>
+<li><img src="/2024/03/16/distill-diffusion/eq_3_1.png" width="250" height="100" alt title> 
+</li>
+<li><p>$\bar{\alpha}_t$ is the accumulated product of (1-$\beta_s$) from time 1 to $t$ and represents <strong>the overall scale of the original data</strong> present in $x_t$. </p>
+</li>
+</ol>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">def</span> <span class="title function_">sample_from_x0</span>(<span class="hljs-params">x_0, t, alpha_bar</span>):</span><br><span class="line">    alpha_t = alpha_bar[t-<span class="hljs-number">1</span>]</span><br><span class="line">    <span class="hljs-keyword">return</span> np.sqrt(alpha_t) * x_0 + np.sqrt(<span class="hljs-number">1.</span> - alpha_t) * np.random.normal(size=x_0.shape)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Reverse-Transition-Kernel-Reverse-Diffusion-Process"><a href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process" class="headerlink" title="Reverse Transition Kernel (Reverse Diffusion Process)"></a>Reverse Transition Kernel (Reverse Diffusion Process)</h4><div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh;">
+  <img src="/2024/03/16/distill-diffusion/reverse_kernel_draw.png" alt title style="max-width: 50%; max-height: 50%; height: auto;">
+</div>
+
+<p>The Reverse Diffusion Process (RDP), used to generate new samples from a distribution by reversing the Forward Diffusion Process (FDP). The FDP gradually adds noise to the data, and the RDP aims to <strong>learn</strong> to reverse this noise addition to recreate the data from the noisy distribution.</p>
+<img src="/2024/03/16/distill-diffusion/rdp_eq.png" width="600" height="100" alt title> 
+
+<p>$\tilde{\mu}_t$ is the mean of the reverse transition kernel at time $t$, which is a linear combination of the original data point $x_0$ and the current noisy data point $x_t$. </p>
+<p>The $\tilde \beta_t$ term is the variance of the Gaussian distribution for the reverse step, which changes at each step, reflecting how the uncertainty decreases as we approach the original data distribution.</p>
+<p>The coefficient for $x_0$ determines how much of the original data point $x_0$ is retained in the reverse transition. As $t$ decreases, $\bar \alpha_{t-1}$ increases, and $1-\bar \alpha_{t-1}$ decreases, making the coefficient larger. This means that as we get closer to $t=0$, we are realying more on the original data point $x_0$ to reconstruct $x_{x-1}$.</p>
+<p>The coefficient for $x_t$ determine the contribution of the current noisy data point $x_t$ to the reverse transition. As $t$ decreases, $\alpha_t$ and $\bar \alpha_{t-1}$ is decreases, making the coefficient smaller.</p>
+<p>We want to remove just the right amount of noise (represented by $x_t$) while restoring the right amount of signal (represented by $x_0$). Initially, $x_t$ is mostly noisy, so its coefficient is relatively small, but as we reverse the diffusion process, $x_t$ gradually becomes less noisy, and its influence increases. </p>
+<p>In the reverse diffusion process, we are effectively using these coefficient to “interploate” between the noise and the data at each step. Initially, the process is noise-dominated, and we have only small “hint” of the data. But as we step back through time, the data’s contribution becomes larger and the noise’s contribution becomes smaller, ultimately allowing us to reconstruct a sample that resembles the original data distribution.</p>
+<p>It’s important to note that in practice, $\tilde \mu$​ would be predicted by a neural network trained to estimate the denoising step.</p>
+<h4 id="With-a-Neural-Network"><a href="#With-a-Neural-Network" class="headerlink" title="With a Neural Network"></a>With a Neural Network</h4><p>In a neural network-based approach to reversing the diffusion process to generate data, we focus on estimating the original data $x_0$ from its noisy version $x_t$ without having direct knowledge of $x_0$. This is a critical aspect of the reverse process in diffusion-based generative models.</p>
+<h5 id="Estimation-of-x-0"><a href="#Estimation-of-x-0" class="headerlink" title="Estimation of  $x_0$:"></a>Estimation of  $x_0$:</h5><ul>
+<li>Since $x_0$ is unknown during generation, we estimate it from $x_t$, the noisy data at a current timestep.</li>
+<li>The estimation equation $ \hat{x}_0 = \frac{(x_t - \sqrt{1 - \bar{\alpha}_t} \epsilon)}{\sqrt{\bar{\alpha}_t}} $ rearranges the forward process (Equation 2).</li>
+<li>The noise $ \epsilon $ added at each diffusion step is unknown; thus, we utilize a neural network parameterized by $ \theta(x_t | t) $ to estimate this noise.</li>
+</ul>
+<h5 id="Neural-Network-and-Loss-Function"><a href="#Neural-Network-and-Loss-Function" class="headerlink" title="Neural Network and Loss Function:"></a>Neural Network and Loss Function:</h5><ul>
+<li>The neural network is defined by its parameters $ \theta $, which are refined during training.</li>
+<li>The loss function $ L(\theta) $ aims to minimize the discrepancy between the estimated noise $ \epsilon $ and the noise predicted by the network $ \theta(x_t | t) $.</li>
+<li>By minimizing this loss, the network is trained to predict the noise added to $ x_0 $ to produce $ x_t $.</li>
+</ul>
+<h4 id="Score-Function"><a href="#Score-Function" class="headerlink" title="Score Function:"></a>Score Function:</h4><ul>
+<li>Estimating $ \epsilon $ is tantamount to calculating the scaled gradient of the log density of $ x_t $ with respect to itself, scaled by $ \frac{1}{1 - \bar{\alpha}_t} $.</li>
+<li>This score function denotes the most significant increase direction in the log probability density of the noisy data.</li>
+<li>Simply put, it indicates the direction from the noisy data $ x_t $ towards the original data $ x_0 $.</li>
+</ul>
+<p>To delve deeper into the neural network training and the role of the loss function:</p>
+<ul>
+<li>The neural network $ \theta(x_t | t) $ is time-conditional, altering its behavior based on the timestep $ t $, which allows for the accommodation of the varying levels of noise in $ x_t $.</li>
+<li>The loss function $ L(\theta) $ is explicitly designed to make $ \theta(x_t | t) $ an effective estimator of the noise $ \epsilon $ that was incorporated into $ x_0 $ at the time $ t $ during the forward process. Training the network to minimize this loss effectively instructs it on reversing the diffusion process.</li>
+<li>The score function $ \nabla_{x_t} \log q_t(x_t | x_0) $ allows the network’s output to be directly associated with the data’s probability density gradients. This gradient, also known as the score, informs us on adjusting $ x_t $ to enhance its likelihood under the data distribution, which is fundamental to generating representative samples of the original data distribution.</li>
+</ul>
+<p>In practice, this methodology enables generative models to create samples from intricate distributions by methodically refining noise into structured data. The neural network is trained to counteract the noise introduced in the diffusion process, thus efficiently generating new data samples from the target distribution.</p>
+<p>The entire training process includes the following iterative steps:</p>
+<ul>
+<li>Begin with a sample $ x_0 $ from the true data distribution.</li>
+<li>Introduce noise to generate $ x_t $ following the forward diffusion process.</li>
+<li>Employ the neural network to estimate the noise $ \epsilon $.</li>
+<li>Adjust the neural network parameters $ \theta $ to minimize the disparity between the estimated and the actual noise, in adherence to the loss function.</li>
+</ul>
+<p>Upon successful training, the neural network is capable of generating new data samples by initiating from noise and applying the learned reverse process.</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/abs/2205.09853">MCVD: Masked Conditional Video Diffusion for Prediction, Generation, and Interpolation</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/artificial-intelligence/" rel="tag">Artificial Intelligence</a><a class="tag -link-link" href="/tags/diffusion/" rel="tag">Diffusion</a><a class="tag -link-link" href="/tags/generative-ai/" rel="tag">Generative AI</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2024/07/15/diffusion-based-video-compression/">
+                <i class="fas fa-chevron-left"></i> Diffusion Based Video Compression
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/03/16/neuro-symbolic-video-search/">
+                Neuro Symbolic Video Search with Temporal Logic <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Conditional-Diffusion-for-Video">
+        <span class="has-mr-6">1</span>
+        <span>Conditional Diffusion for Video</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Algorithm-with-code">
+        <span class="has-mr-6">1.1</span>
+        <span>Algorithm with code</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Forward-Transition-Kernel">
+        <span class="has-mr-6">1.1.1</span>
+        <span>Forward Transition Kernel:</span>
+        </a></li><li>
+        <a class="is-flex" href="#Accumulated-Kernel">
+        <span class="has-mr-6">1.1.2</span>
+        <span>Accumulated Kernel:</span>
+        </a></li><li>
+        <a class="is-flex" href="#Reverse-Transition-Kernel-Reverse-Diffusion-Process">
+        <span class="has-mr-6">1.1.3</span>
+        <span>Reverse Transition Kernel (Reverse Diffusion Process)</span>
+        </a></li><li>
+        <a class="is-flex" href="#With-a-Neural-Network">
+        <span class="has-mr-6">1.1.4</span>
+        <span>With a Neural Network</span>
+        </a></li><li>
+        <a class="is-flex" href="#Score-Function">
+        <span class="has-mr-6">1.1.5</span>
+        <span>Score Function:</span>
+        </a></li></ul></li></ul></li><li>
+        <a class="is-flex" href="#References">
+        <span class="has-mr-6">2</span>
+        <span>References</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Distill Diffusion" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

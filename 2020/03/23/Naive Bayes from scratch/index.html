@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Naive Bayes from scratch - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2020/03/23/naive bayes from scratch/">
+
+
+    <meta name="description" content="Naive Bayes classifiers are highly scalable, requiring a number of parameters linear in the number of variables (features&#x2F;predcitors) in a learning problem. Maxumum-likelihood training can be done by">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Naive Bayes from scratch">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2020/03/23/Naive%20Bayes%20from%20scratch/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Naive Bayes classifiers are highly scalable, requiring a number of parameters linear in the number of variables (features&#x2F;predcitors) in a learning problem. Maxumum-likelihood training can be done by">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2020-03-23T21:54:04.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.446Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Statistics">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="Machine Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2020/03/23/Naive Bayes from scratch/">
+
+
+<link rel="alternative" href="/feed.xml" title="Naive Bayes from scratch" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Naive Bayes from scratch" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-03-23T21:54:04.000Z">2020-03-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Naive Bayes from scratch
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>Naive Bayes classifiers are highly scalable, requiring a number of parameters linear in the number of variables (features/predcitors) in a learning problem. <code>Maxumum-likelihood</code> training can be done by evaluting a closed-form exporession, which takes linear time, rather tahn by expensive iterative approximation as used for many other typs of classifier.  <a target="_blank" rel="external nofollow noopener noreferrer" href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Wikipedia</a></p>
+<span id="more"></span>
+
+<h2 id="Usecase-Spam-filter"><a href="#Usecase-Spam-filter" class="headerlink" title="Usecase - Spam filter"></a>Usecase - Spam filter</h2><p>We will use the <code>Naive Bayes</code> algorithm to fit a spam filter. </p>
+<p>Spam filters are used in alal email services to classify received emails as “Spam” or “Not Spam”. A simple apporach involves maintaining a vocabulary of words that commonly occur in “Spam” emails and classifying an email as “Spam” if the number of words from the dictionary that are present in the email is over a certain threshold. </p>
+<p>Assume we are given the vocabulary consists of 15 words</p>
+<p>$V$ = {secret, offer, low, price, valued, customer, today, dollar, million, sports, is, for, play, healthy, pizza} </p>
+<p>We will use $V_i$ to represent the ith word in $V$. As our training dataset, we are also given 3 example spam messages: <br><br>• million dollar offer <br><br>• secret offer today <br><br>• secret is secret <br></p>
+<p>and 4 example non-spam messages<br><br>• low price for valued customer <br><br>• play secret sports today<br><br>• sports is healthy<br><br>• low price pizza<br></p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line">V = [<span class="hljs-string">&#x27;secret&#x27;</span>, <span class="hljs-string">&#x27;offer&#x27;</span>, <span class="hljs-string">&#x27;low&#x27;</span>, <span class="hljs-string">&#x27;price&#x27;</span>, <span class="hljs-string">&#x27;valued&#x27;</span>, <span class="hljs-string">&#x27;customer&#x27;</span>, <span class="hljs-string">&#x27;today&#x27;</span>, <span class="hljs-string">&#x27;dollar&#x27;</span>, <span class="hljs-string">&#x27;million&#x27;</span>, <span class="hljs-string">&#x27;sports&#x27;</span>, <span class="hljs-string">&#x27;is&#x27;</span>, <span class="hljs-string">&#x27;for&#x27;</span>, <span class="hljs-string">&#x27;play&#x27;</span>, <span class="hljs-string">&#x27;healthy&#x27;</span>, <span class="hljs-string">&#x27;pizza&#x27;</span>]</span><br><span class="line"></span><br><span class="line">message = [<span class="hljs-string">&#x27;million dollar offer&#x27;</span>,<span class="hljs-string">&#x27;secret offer today&#x27;</span>,<span class="hljs-string">&#x27;secret is secret&#x27;</span>,</span><br><span class="line">          <span class="hljs-string">&#x27;low price for valued customer&#x27;</span>, <span class="hljs-string">&#x27;play secret sports today&#x27;</span>, </span><br><span class="line">          <span class="hljs-string">&#x27;sports is healthy&#x27;</span>, <span class="hljs-string">&#x27;low price pizza&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>train</code> is our input vector x corresponding to each training message, and it has length n = 15 (length of V). Since we have 7 training example of message, We will have 7 by 15 training data - 7 data 15 features. </p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train = np.zeros((<span class="hljs-number">7</span>, <span class="hljs-number">15</span>))</span><br><span class="line">label = [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">Converting 7 training message data set to x vector which has length n = 15</span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(train)):</span><br><span class="line">    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(V)):</span><br><span class="line">        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(message[i].split(<span class="hljs-string">&quot; &quot;</span>))):</span><br><span class="line">            <span class="hljs-keyword">if</span> V[j] == message[i].split(<span class="hljs-string">&quot; &quot;</span>)[k]:</span><br><span class="line">                train[i,j] += <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">This is the feture x matrix.</span></span><br><span class="line"><span class="hljs-string">row = n message</span></span><br><span class="line"><span class="hljs-string">col = i_th feature vector </span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">train</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[0., 1., 0., 0., 0., 0., 0., 1., 1., 0., 0., 0., 0., 0., 0.],
+       [1., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [2., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0.],
+       [0., 0., 1., 1., 1., 1., 0., 0., 0., 0., 0., 1., 0., 0., 0.],
+       [1., 0., 0., 0., 0., 0., 1., 0., 0., 1., 0., 0., 1., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 0., 0., 1., 0.],
+       [0., 0., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1.]])</code></pre><p>Let’s list them separately</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(label)):</span><br><span class="line">    <span class="hljs-keyword">if</span> label[i] == <span class="hljs-number">0</span>:</span><br><span class="line">        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;this is &#123;&#125;th message - It&#x27;s SCAM&quot;</span>.<span class="hljs-built_in">format</span>(i))</span><br><span class="line">        <span class="hljs-built_in">print</span>(train[i])</span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;this is &#123;&#125;th message - It&#x27;s NOT SCAM&quot;</span>.<span class="hljs-built_in">format</span>(i))</span><br><span class="line">        <span class="hljs-built_in">print</span>(train[i])</span><br></pre></td></tr></table></figure>
+
+<pre><code>this is 0th message - It&apos;s SCAM
+[0. 1. 0. 0. 0. 0. 0. 1. 1. 0. 0. 0. 0. 0. 0.]
+this is 1th message - It&apos;s SCAM
+[1. 1. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0.]
+this is 2th message - It&apos;s SCAM
+[2. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
+this is 3th message - It&apos;s NOT SCAM
+[0. 0. 1. 1. 1. 1. 0. 0. 0. 0. 0. 1. 0. 0. 0.]
+this is 4th message - It&apos;s NOT SCAM
+[1. 0. 0. 0. 0. 0. 1. 0. 0. 1. 0. 0. 1. 0. 0.]
+this is 5th message - It&apos;s NOT SCAM
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 1. 0. 0. 1. 0.]
+this is 6th message - It&apos;s NOT SCAM
+[0. 0. 1. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1.]</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">spam and ham array will be count of x_i when each message is spam or not spam.</span></span><br><span class="line"><span class="hljs-string">spam = (Y=0|x_i)</span></span><br><span class="line"><span class="hljs-string">ham = (Y=1|x_i)</span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">spam = np.zeros((<span class="hljs-number">1</span>, <span class="hljs-number">15</span>))</span><br><span class="line">ham = np.zeros((<span class="hljs-number">1</span>, <span class="hljs-number">15</span>))</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(label)):</span><br><span class="line">    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(train.shape[<span class="hljs-number">1</span>]):</span><br><span class="line">        <span class="hljs-keyword">if</span> label[c] == <span class="hljs-number">0</span>: <span class="hljs-comment"># Spam</span></span><br><span class="line">            spam[<span class="hljs-number">0</span>,i] += train[c,i]</span><br><span class="line">            </span><br><span class="line">        <span class="hljs-keyword">else</span>: <span class="hljs-comment"># Not Spam</span></span><br><span class="line">            ham[<span class="hljs-number">0</span>,i] += train[c,i]</span><br><span class="line">            </span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spam</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[3., 2., 0., 0., 0., 0., 1., 1., 1., 0., 1., 0., 0., 0., 0.]])</code></pre><p>If you see a result above, <code>spam[0] = 3</code> ,<code>spam[1] = 2</code> , <code>spam [2] = 0</code>, it means total count of <code>x0 = secret</code> is three among training data classified as <em>spam</em>. We have two <code>offer</code> and zeor <code>low</code> in our training data.  </p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">In this section, we will calculate probabiliy of each word xi when a message is spam or not.</span></span><br><span class="line"><span class="hljs-string">prob_spam = P(x_i|y=0)</span></span><br><span class="line"><span class="hljs-string">prob_ham = P(x_i|y=1)</span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">spam_counter = <span class="hljs-number">0</span></span><br><span class="line">ham_counter = <span class="hljs-number">0</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(label)):</span><br><span class="line">    <span class="hljs-keyword">if</span> label[c] == <span class="hljs-number">0</span>:</span><br><span class="line">        spam_counter += <span class="hljs-number">1</span></span><br><span class="line">        </span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        ham_counter += <span class="hljs-number">1</span></span><br><span class="line">        </span><br><span class="line">prob_spam_x_i = spam/spam_counter</span><br><span class="line">prob_ham_x_i = ham/ham_counter</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prob_spam_x_i </span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[1.        , 0.66666667, 0.        , 0.        , 0.        ,
+        0.        , 0.33333333, 0.33333333, 0.33333333, 0.        ,
+        0.33333333, 0.        , 0.        , 0.        , 0.        ]])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prob_ham_x_i </span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[0.25, 0.  , 0.5 , 0.5 , 0.25, 0.25, 0.25, 0.  , 0.  , 0.5 , 0.25,
+        0.25, 0.25, 0.25, 0.25]])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">Bayes Therorm</span></span><br><span class="line"><span class="hljs-string">Calculating P(y=0|x_i)</span></span><br><span class="line"><span class="hljs-string">prob_spam_per_word = P(y=0|x_i)</span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">prob_spam_per_word = np.zeros((<span class="hljs-number">1</span>, <span class="hljs-number">15</span>))</span><br><span class="line">prob_ham_per_word = np.zeros((<span class="hljs-number">1</span>, <span class="hljs-number">15</span>))</span><br><span class="line">prob_spam = <span class="hljs-number">3</span>/<span class="hljs-number">7</span></span><br><span class="line">prob_ham = <span class="hljs-number">4</span>/<span class="hljs-number">7</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(prob_spam_per_word.shape[<span class="hljs-number">1</span>]):</span><br><span class="line">    spam_a = (prob_spam_x_i[<span class="hljs-number">0</span>,i]*prob_spam) </span><br><span class="line">    spam_b = spam_a + (prob_ham_x_i[<span class="hljs-number">0</span>,i]*prob_ham)</span><br><span class="line">    spam_c = spam_a/spam_b</span><br><span class="line">    </span><br><span class="line">    ham_a = (prob_ham_x_i[<span class="hljs-number">0</span>,i]*prob_ham) </span><br><span class="line">    ham_b = ham_a + (prob_spam_x_i[<span class="hljs-number">0</span>,i]*prob_spam)</span><br><span class="line">    ham_c = ham_a/ham_b</span><br><span class="line">    </span><br><span class="line">    prob_spam_per_word[<span class="hljs-number">0</span>,i] = spam_c</span><br><span class="line">    prob_ham_per_word[<span class="hljs-number">0</span>,i] = ham_c</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prob_spam_per_word</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[0.75, 1.  , 0.  , 0.  , 0.  , 0.  , 0.5 , 1.  , 1.  , 0.  , 0.5 ,
+        0.  , 0.  , 0.  , 0.  ]])</code></pre><p>The result above means that the probability of spam per i_th words. For example, the probability of spam when we have <code>secret</code> is 75% and a probability of spam of <code>offer</code> is 100%.</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prob_ham_per_word <span class="hljs-comment"># This is the probability of ham per words.</span></span><br></pre></td></tr></table></figure>
+
+
+<pre><code>array([[0.25, 0.  , 1.  , 1.  , 1.  , 1.  , 0.5 , 0.  , 0.  , 1.  , 0.5 ,
+        1.  , 1.  , 1.  , 1.  ]])</code></pre><p><strong>Since we don’t have enough data, I will just use training dataset to evaluate the bayes classifier</strong></p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">threshold = <span class="hljs-number">0.50</span> <span class="hljs-comment"># In what percentage do you want to classfy an eamil as spam.</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(train.shape[<span class="hljs-number">0</span>]):</span><br><span class="line">    conditional_prob_spam = prob_spam</span><br><span class="line">    conditional_prob_ham = prob_ham</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(prob_spam_per_word.shape[<span class="hljs-number">1</span>]):</span><br><span class="line">        <span class="hljs-keyword">if</span> train[t][i] == <span class="hljs-number">1</span>:</span><br><span class="line">            conditional_prob_spam = conditional_prob_spam * prob_spam_per_word[<span class="hljs-number">0</span>,i]</span><br><span class="line">            conditional_prob_ham = conditional_prob_ham * prob_ham_per_word[<span class="hljs-number">0</span>,i]</span><br><span class="line">            </span><br><span class="line">    <span class="hljs-keyword">if</span> conditional_prob_spam != <span class="hljs-number">0</span>:</span><br><span class="line">        prob = conditional_prob_spam / (conditional_prob_spam + conditional_prob_ham) * <span class="hljs-number">100</span></span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        prob = <span class="hljs-number">0.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> prob &gt; threshold*<span class="hljs-number">100</span>:</span><br><span class="line">        label = <span class="hljs-string">&quot;SPAM&quot;</span>  </span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        label = <span class="hljs-string">&quot;NOT SPAM&quot;</span></span><br><span class="line">        </span><br><span class="line">    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;&#125; th email is &#123;&#125; with a probability of being spam &#123;&#125;%&quot;</span>.<span class="hljs-built_in">format</span>(t,label,prob))</span><br><span class="line">    <span class="hljs-comment">#print(prob)</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>0 th email is SPAM with a probability of being spam 100.0%
+1 th email is SPAM with a probability of being spam 100.0%
+2 th email is NOT SPAM with a probability of being spam 42.857142857142854%
+3 th email is NOT SPAM with a probability of being spam 0.0%
+4 th email is NOT SPAM with a probability of being spam 0.0%
+5 th email is NOT SPAM with a probability of being spam 0.0%
+6 th email is NOT SPAM with a probability of being spam 0.0%</code></pre><h4 id><a href="#" class="headerlink" title></a></h4><p>Given a new message <code>“today is secret”</code>, decide whether it is spam or not spam, based on the Naive Bayes classifier, learned from the above data.</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">&quot;today is secret&quot;</span></span><br><span class="line"><span class="hljs-string">Vectorizing the email.. </span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">target = np.array([<span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">1.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>, <span class="hljs-number">0.</span>])</span><br><span class="line">target[<span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="hljs-string">Please play around with different threshold. </span></span><br><span class="line"><span class="hljs-string">&#x27;&#x27;&#x27;</span></span><br><span class="line">threshold = <span class="hljs-number">0.50</span> <span class="hljs-comment"># In what percentage do you want to classfy an eamil as spam.</span></span><br><span class="line"></span><br><span class="line">conditional_prob_spam = prob_spam</span><br><span class="line">conditional_prob_ham = prob_ham</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(prob_spam_per_word.shape[<span class="hljs-number">1</span>]):</span><br><span class="line">    <span class="hljs-keyword">if</span> target[i] == <span class="hljs-number">1</span>:</span><br><span class="line">        conditional_prob_spam = conditional_prob_spam * prob_spam_per_word[<span class="hljs-number">0</span>,i]</span><br><span class="line">        conditional_prob_ham = conditional_prob_ham * prob_ham_per_word[<span class="hljs-number">0</span>,i]</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">if</span> conditional_prob_spam != <span class="hljs-number">0</span>:</span><br><span class="line">    prob = conditional_prob_spam / (conditional_prob_spam + conditional_prob_ham) * <span class="hljs-number">100</span></span><br><span class="line"><span class="hljs-keyword">else</span>:</span><br><span class="line">    prob = <span class="hljs-number">0.0</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">if</span> prob &gt; threshold*<span class="hljs-number">100</span>:</span><br><span class="line">    label = <span class="hljs-string">&quot;SPAM&quot;</span>  </span><br><span class="line"><span class="hljs-keyword">else</span>:</span><br><span class="line">    label = <span class="hljs-string">&quot;NOT SPAM&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&#123;&#125; th email is &#123;&#125; with a probability of being spam &#123;&#125;%&quot;</span>.<span class="hljs-built_in">format</span>(t,label,prob))</span><br><span class="line"><span class="hljs-comment">#print(prob)</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>6 th email is SPAM with a probability of being spam 69.23076923076923%</code></pre>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/english/" rel="tag">English</a><a class="tag -link-link" href="/tags/machine-learning/" rel="tag">Machine Learning</a><a class="tag -link-link" href="/tags/statistics/" rel="tag">Statistics</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2020/04/02/boosting/">
+                <i class="fas fa-chevron-left"></i> Boosting (AdbBoost)
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2020/01/24/feature-engineering-101/">
+                Feature Engineering <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Usecase-Spam-filter">
+        <span class="has-mr-6">1</span>
+        <span>Usecase - Spam filter</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#">
+        <span class="has-mr-6">1.1</span>
+        <span></span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Naive Bayes from scratch" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

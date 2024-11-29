@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Simulation - Input Analysis - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/07/23/input-analysis/">
+
+
+    <meta name="description" content="How can we tell our random variables are well made? In simulation terminology, we have something called input analysis.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simulation - Input Analysis">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2019/07/23/input-analysis/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="How can we tell our random variables are well made? In simulation terminology, we have something called input analysis.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2019-07-23T20:40:08.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.443Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Simulation">
+<meta property="article:tag" content="English">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/07/23/input-analysis/">
+
+
+<link rel="alternative" href="/feed.xml" title="Simulation - Input Analysis" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Simulation - Input Analysis" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-23T20:40:08.000Z">2019-07-23</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Simulation - Input Analysis
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>How can we tell our random variables are well made? In simulation terminology, we have something called <code>input analysis</code>.</p>
+<span id="more"></span>
+
+<p>In my previous two postings, <a href>random number</a>, <a href>random variable</a>, I’ve talked about how to generate a random number and how we could make a radom variable by using those random numbers. Then how can we tell our random variables are well made? In simulation terminology, we have something called <code>input analysis</code>. The random variables are our input, and we need to analyze those inputs to verify it’s relevance. If you use the wrong input random variables in the simulation model, it will result in wrong output. A proper input analysis can save you from <code>Garbage-in-garbage-out</code></p>
+<p>How can we conduct a proper input analysis?</p>
+<ol>
+<li>We have to collect data<ul>
+<li>Data Sampling - we could shuffle the data and take some samples from there</li>
+</ul>
+</li>
+<li>We have to figure out a distribution of data<ul>
+<li>Plot the data to histogram </li>
+<li>Discrete vs contunuous</li>
+<li>Univariate / Multivariate</li>
+<li>If data is not enough — we can guess a good distribution</li>
+</ul>
+</li>
+<li>We have to do a statistical test to verify the distribution</li>
+</ol>
+<h2 id="1-Point-Estimation"><a href="#1-Point-Estimation" class="headerlink" title="1. Point Estimation"></a>1. Point Estimation</h2><p>A <em>statistic</em> can not explicitly depend on any <code>unknown parameters</code> because statics are based on the actural observations. <em>Statistics</em> are random variable - we could expect to have two different values of a static when we take two different samples. But we need to find the <code>unknown parameters</code>. How can we do it? we could estimate <code>unknown parameters</code> from the existing probability of distribution.  </p>
+<p>Let $X_1, . . . . , X_n$ be i.i.d. Random Variables and let $M(X) ≡ M(X_1, . . . . , X_n)$ be a statistic based on the $X_i$’s. <strong>Suppose we use $M(X)$ to estimate some unknown parameter $θ$ Then $M(X)$ is called a <em>point estimator</em> for $θ$ .</strong></p>
+<ul>
+<li>$\bar{x}$ is a point estimator for the mean $μ = E[Xi]$</li>
+<li>$S^2$ is a point estimator for the variance  $σ2 = Var(Xi) $</li>
+</ul>
+<p>*<em>It would be nice if $M(X)$ had certain properties: *</em></p>
+<ul>
+<li>Its expected value should equal the parameter it’s trying to estimate</li>
+<li>It should have low variance</li>
+</ul>
+<p>We all know that good estimator should be unbiased because if we use the biased estimator we won’t figure out whether our model is good or not. We will be fooled by a biased estimator. $T(X)$ is <em>unbiased</em> for $θ$ if $E[M(X)] = θ$</p>
+<p><strong>EX1</strong> -  Suppose $X_1, . . . , X_n$ are i.i.d. anything with mean μ. Then</p>
+<p><img src="/2019/07/19/random-variable/sample_mean.png" alt="sample_mean"></p>
+<p>So $\bar{X}$ is alwys unbiased for $\mu$. That’s why ${\bar{X}}$ is called the <em>sample mean</em> </p>
+<p><strong>EX2</strong> -  Suppose $X_1, . . . , X_n$ are i.i.d. anything with mean μ and variance $\sigma^2$. Then</p>
+<p><img src="/2019/07/19/random-variable/sample_variance.png" alt="sample_variance"></p>
+<p>Thus, $S^2$ is always unbiased for $\sigma^2$. This is why $S^2$ is called the sample variance. </p>
+<h2 id="2-Mean-Square-Error"><a href="#2-Mean-Square-Error" class="headerlink" title="2. Mean Square Error"></a>2. Mean Square Error</h2><p>In a perfect sceanario, our estimator will be exactly same as $\theta$. Then we will see no error. However, it’s not the real case. Our goal is to reduce the error between an estimator and $\theta$. </p>
+<p>The <em>mean squared error</em> of an estimator $M(X)$ of $\theta$ is </p>
+<p>$$<br>\begin{aligned}<br> MSE(M(X)) ≡ E[(M(X)-\theta)^2]<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br> Baia(M(X)) ≡ E[T(X) - \theta]<br>\end{aligned}<br>$$</p>
+<p>We could interpret MSE like this: </p>
+<p><img src="/2019/07/19/random-variable/mse.png" alt="mse"></p>
+<p>Lower MSE mean we are avoiding the bias and <strong>variance</strong>. Our goal should be finding a good estimator which can lower our error. If $M_1(X)$ and $M_2(X)$ are two estimators of $\theta$, we’d usually prefer the one with the lower MSE — even if it happens to have higer bias.</p>
+<h2 id="3-Maximum-Linelihood-Estimators"><a href="#3-Maximum-Linelihood-Estimators" class="headerlink" title="3. Maximum Linelihood Estimators"></a>3. Maximum Linelihood Estimators</h2><p>What if we don’t have a set of data, but we have a pdf/pmf $f(x)$ of the distribution. How can we find the $\theta$?</p>
+<p>Consider an i.i.d. random sample $X_1, . . . , X_n$, where each $X_i$ has pdf/pmf $f(x)$. Further, suppose that $\theta$ is some unknown parameter from $X_i$. The likelihood function is $L(\theta) ≡ \prod f(x_i)$</p>
+<p>The maximum likelihood estimator (MLE) of $\theta$ is the value of $\theta$ that maximizes $L(\theta)$. The MLE is a function of the $X_i$’s and is a RV. </p>
+<p><strong>EX1</strong> -  Suppose $X_1, . . . , X_n$ ~ Exp$(\gamma)$. Find the MLE for $\gamma$</p>
+<p><img src="/2019/07/19/random-variable/mle-1.png" alt="mle-1"></p>
+<p>Since the natural log function is one-to-one, it’s easy to see that the $\gamma$ that maximizes $L(\gamma)$ also maximize $ln(L(\gamma))$</p>
+<p><img src="/2019/07/19/random-variable/mle-2.png" alt="mle-2"></p>
+<p><img src="/2019/07/19/random-variable/mle-3.png" alt="mle-3"></p>
+<p>This implies that the MLE is $\hat{\gamma} = 1 / \bar{X}$</p>
+<p><strong>Invariance Property</strong> </p>
+<p>If $\hat{\theta}$ is the MLE of some parameter $\theta$ and $h(.)$ is a one-to-one function, then $h(\hat{\theta})$ is the MLE of $h(\theta)$</p>
+<p>For Bern(p) distribution the MLE of $p$ is $\hat{p}=\bar{X}$ (which also happens to be unbiased). If we consider the 1:1 function $h(\theta) = \theta^2$ for ($\theta &gt; 0)$, then the <em>Invariance property</em> says that the MLE of $p^2$ is $\bar{X}^2$</p>
+<p>But such a property does not hold for unbiasedness</p>
+<p>$$<br>\begin{aligned}<br>E[S^2] = σ^2<br>\end{aligned}<br>but<br>\begin{aligned}<br>E[\sqrt{S^2}]= σ<br>\end{aligned}<br>$$</p>
+<p>Really that MLE for $\sigma^2$ is $\hat{\sigma^2} = 1/n\sum(X_i - \bar{X})^2$. The good news is that we can still get the MLE for $\sigma$. If we consider the 1:1 function $h(\theta) = +\sqrt{\theta}$, then the invariance property says that the MLE of $\sigma$ is </p>
+<p>$$<br>\begin{aligned}<br>\hat{\sigma} = \sqrt{\hat{\sigma^2}} = \sqrt{\sum(X_i-\bar{X})^2/n}<br>\end{aligned}<br>$$</p>
+<h2 id="4-The-Method-of-Moments"><a href="#4-The-Method-of-Moments" class="headerlink" title="4. The Method of Moments"></a>4. The Method of Moments</h2><p>Recall: the $k$th moment of a random variable X is </p>
+<p><img src="/2019/07/19/random-variable/mom-1.png" alt="mom-1"></p>
+<p>Suppose $X_1, . . . , X_n$ are i.i.d. from p.m.f. / p.d.f. $f(x)$. Then the method of moments(MOM) estimator for $E[X^k]$ is</p>
+<p>$$<br>m_k ≡ 1/n\sum X^k_i<br>$$</p>
+<p><img src="/2019/07/19/random-variable/mom-2.png" alt="mom-2"></p>
+<h2 id="5-Goodness-of-Fit-Tests"><a href="#5-Goodness-of-Fit-Tests" class="headerlink" title="5. Goodness-of-Fit Tests"></a>5. Goodness-of-Fit Tests</h2><p>We finanlly guessed a reasonable distribution and then estimated the relevant parameters. Now let’s conduct a formal test to see just how sucessful our toils have been.</p>
+<p>In particular, test</p>
+<p>$$<br>H_0 : X_1, X_2, . . . , X_n - p.m.f / p.d.f. f(x)<br>$$</p>
+<p>At level of significance</p>
+<p>$$<br>\alpha ≡ P(Reject H_0 | H_0 true) =P(\text{Type I Error})<br>$$</p>
+<h5 id="Chi-Square-Test"><a href="#Chi-Square-Test" class="headerlink" title="Chi-Square-Test"></a>Chi-Square-Test</h5><p>Goodness-of-fit test procedure: </p>
+<ol>
+<li>Divide the domain of $f(x)$ into $k$ sets, say, $A_1, A_2, A_3, . . . , A_k$ (distinct points if X is discret r intervals if X is continuous)</li>
+<li>Tally the actual number of observations that fall in ach set, say, $O_i i = 1, 2, . . . , k$. If $p_i ≡ P(X ∈ Ai)$, then $O_i \text{~ Bin(}n,p_i)$</li>
+<li>Determine the expected number of observations that would fall in each set if $H_0$ were true, say, $E_i = E[O-I] = np_i, i = 1,2, . . . , k$</li>
+<li>Calculate a test statistic based on the differences between the $E_i$ and $O_i$.</li>
+</ol>
+<p><img src="/2019/07/19/random-variable/gof.png" alt="gof"></p>
+<ol start="5">
+<li>A large value of $X^2_0$ indicate a bad fit. We reject $H_0 \text{ if } \chi^2_0 &gt; \chi^2_{\alpha,k-1-s}$, where $s$ is the number of nuknown paramets from $f(x) that have to be estimated. </li>
+</ol>
+<p>Usual recommendation: For the $\chi^2$ g-o-f test to work, pick $k,n$ such that $E_i &gt;= 5$ and $n$ at least 30</p>
+<p><strong>Kolmogorov_Smirnov Goodness-of-Fit Test</strong></p>
+<p>We’ll test $H_0 : X_1, X_2, . . . , X_n$ some distribution with $c.d.f. F (x)$.</p>
+<p>Recall the difincation of the <em>empirical c.d.f. (also called the sample c.d.f)</em> of the data is</p>
+<p>$$<br>\hat{F_n}(x) ≡ (\text{number of } X_i &lt;= x) / n<br>$$</p>
+<p>The Glivenko-Cantelli Lemma says that $\hat{F_n}(x) -&gt; F(x)$ for all $x$ as $ n-&gt;\infinite$.  So if $H_0$ is ture then $\hat{F_n}(x)$ should be a good approxmination to the true c.d.f. $F(x)$, for large $n$ The main question: Does the empirical distribution actually support the assumption that H0 is true? </p>
+<p> <img src="/2019/07/19/random-variable/ks.png" alt="ks"></p>
+<h5 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h5><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.computerhope.com/jargon/s/stdin.htm">Thumnail</a><br>Georgia Tech’s <code>ISYE6644</code> class content</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/english/" rel="tag">English</a><a class="tag -link-link" href="/tags/simulation/" rel="tag">Simulation</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2019/07/30/output-analysis/">
+                <i class="fas fa-chevron-left"></i> Simulation - Output Analysis
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2019/07/19/random-variable/">
+                Simulation - Random variable <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-Point-Estimation">
+        <span class="has-mr-6">1</span>
+        <span>1. Point Estimation</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-Mean-Square-Error">
+        <span class="has-mr-6">2</span>
+        <span>2. Mean Square Error</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-Maximum-Linelihood-Estimators">
+        <span class="has-mr-6">3</span>
+        <span>3. Maximum Linelihood Estimators</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-The-Method-of-Moments">
+        <span class="has-mr-6">4</span>
+        <span>4. The Method of Moments</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-Goodness-of-Fit-Tests">
+        <span class="has-mr-6">5</span>
+        <span>5. Goodness-of-Fit Tests</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Chi-Square-Test">
+        <span class="has-mr-6">5.1</span>
+        <span>Chi-Square-Test</span>
+        </a></li><li>
+        <a class="is-flex" href="#Reference">
+        <span class="has-mr-6">5.2</span>
+        <span>Reference</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Simulation - Input Analysis" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

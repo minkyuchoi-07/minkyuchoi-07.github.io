@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Realtime Virus Scanning - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/11/20/nifi-virus-scanning/">
+
+
+    <meta name="description" content="To protect our system and computer we should make sure that data which we download is clean. Everytime we bring data to our system or user upload data such as file attachments, we must make sure that">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Realtime Virus Scanning">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2019/11/20/nifi-virus-scanning/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="To protect our system and computer we should make sure that data which we download is clean. Everytime we bring data to our system or user upload data such as file attachments, we must make sure that">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2019-11-20T20:14:06.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.444Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="Data Engineering">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/11/20/nifi-virus-scanning/">
+
+
+<link rel="alternative" href="/feed.xml" title="Realtime Virus Scanning" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Realtime Virus Scanning" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-20T20:14:06.000Z">2019-11-20</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Realtime Virus Scanning
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>To protect our system and computer we should make sure that data which we download is clean. Everytime we bring data to our system or user upload data such as file attachments, we must make sure that data is free from viruses and trojans. </p>
+<span id="more"></span>
+
+<p>If our system has sensitive data and critical for operation you have to be more cautious about bringing data to your system - cyber attack, nowadays, is being serious and cunning. </p>
+<p>In a normal usecase, we set up Anti Virus (AV) scanner on a file system. AV scanner monitor our file system and RAM in real-time or batch. However, it cannot make sure that each file doesn’t have any malicious content in real-time. In this project, we will use two open source products to detect virus/trojan in realtime. We are going to use <code>Apache Nifi</code> and <code>ClamAV</code> </p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://nifi.apache.org/">Apache Nifi</a> is a very powerful, easy to use and stable system to process and distribute data between disparate system. Apache Nifi is a real time data ingestion platform, which can transfer and manage data transfer between different sources and destination systems. </p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.clamav.net/">ClamAV</a> is an open source antivirus engine for detecting trojans, viruses, malware &amp; other malicious threats. </p>
+<h2 id="1-Usecase"><a href="#1-Usecase" class="headerlink" title="1. Usecase"></a>1. Usecase</h2><p>A usecase is that user need to transfer some files to the applicaion, and we have to make sure that the files don’t contain any malicious codes or contents. Since this is not bulk transformation, we want to transfer a file to endpoint in realtime after scanning. A diagram below is a high level work flow of this usecase. </p>
+<p><img src="/2019/11/20/nifi-virus-scanning/workflow1.png" alt="workflow1"></p>
+<h2 id="2-Setting-Nifi-Server"><a href="#2-Setting-Nifi-Server" class="headerlink" title="2. Setting Nifi Server"></a>2. Setting Nifi Server</h2><p>There are many different ways that you could set up Nifi server depending on the operating system. In this project, I am using <code>Ubuntu 16.04</code>. </p>
+<h3 id="Updating-and-Upgrading-apt-get"><a href="#Updating-and-Upgrading-apt-get" class="headerlink" title="Updating and Upgrading apt-get"></a>Updating and Upgrading apt-get</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">apt-get autoclean</span><br><span class="line">apt-get clean all</span><br><span class="line">apt-get -y update</span><br><span class="line">apt-get -y upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-Java-JRE"><a href="#Installing-Java-JRE" class="headerlink" title="Installing Java (JRE)"></a>Installing Java (JRE)</h3><p>Apache Nifi is built on Java. We have to have java installed in the system</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install oracle-java8-installer -y</span><br></pre></td></tr></table></figure>
+
+<h3 id="Installing-Nifi"><a href="#Installing-Nifi" class="headerlink" title="Installing Nifi"></a>Installing Nifi</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget &quot;https://www-us.apache.org/dist/nifi/1.10.0/nifi-1.10.0-bin.tar.gz&quot;</span><br><span class="line"></span><br><span class="line">mkdir /opt/nifi</span><br><span class="line"></span><br><span class="line">tar -xvzf nifi-1.10.0-bin.tar.gz --directory /opt/nifi --strip-components 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set-JAVA-HOME"><a href="#Set-JAVA-HOME" class="headerlink" title="Set JAVA_HOME"></a>Set JAVA_HOME</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line">export JAVA_HOME=/usr/lib/jvm/java-8-oracle</span><br><span class="line">source ~./bashrc</span><br></pre></td></tr></table></figure>
+
+<h3 id="Start-Stop-Apache-Nifi"><a href="#Start-Stop-Apache-Nifi" class="headerlink" title="Start/Stop Apache Nifi"></a>Start/Stop Apache Nifi</h3><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/opt/nifi/bin/nifi.sh start</span><br><span class="line"><span class="meta prompt_">#</span><span class="hljs-language-bash">or</span></span><br><span class="line">/opt/nifi/bin/nifi.sh stop</span><br></pre></td></tr></table></figure>
+
+<h3 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h3><p>You should open a browser to access NiFI GUI.</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="hljs-language-bash">default</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="hljs-language-bash">http://localhost:8080/nifi</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="hljs-language-bash">or</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="hljs-language-bash">http://IP-Address:8080/nifi</span></span><br></pre></td></tr></table></figure>
+
+<p>If you need to change port:</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /opt/nifi/conf/nifi.properties</span><br><span class="line"><span class="meta prompt_"># </span><span class="hljs-language-bash">change the defalt port to what you desire</span></span><br></pre></td></tr></table></figure>
+
+<p>If everything is good you should be able to see this screen.</p>
+<p><img src="/2019/11/20/nifi-virus-scanning/nifi_main_page.png" alt="nifi_main_page"></p>
+<h2 id="2-Setting-ClamAV-Server-at-rest"><a href="#2-Setting-ClamAV-Server-at-rest" class="headerlink" title="2. Setting ClamAV Server at rest"></a>2. Setting ClamAV Server at rest</h2><p>We are going to deply a virus scanner and make it usable in a server at REST. Even though we have multiple applications like one for email attachment, SFTP, etc., we just need to deploy a AV scanner for many applicaions.  </p>
+<p>Simple Clam AV REST Proxy. This will be built on top of clamav-java. Pleas fine more detail <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/solita/clamav-rest">here</a>.</p>
+<p>We need two containers. One is <a target="_blank" rel="external nofollow noopener noreferrer" href="https://hub.docker.com/r/mkodockx/docker-clamav">ClamAV daemon</a> as a Docker images. It <em>builds</em> with a current virus database and <em>runs</em> <code>freshclam</code> in the background constantly updating the virus signature database. <code>clamd</code> itself is listening on exposed port <code>3310</code>.</p>
+<p>Another one is the server implementation. This is a precompiled and packaged docker container running the server. You also need the ClamAV virus scanner for the REST endpoint.</p>
+<p>To run use something like this.</p>
+<ol>
+<li>Start ClamAV server, using <a target="_blank" rel="external nofollow noopener noreferrer" href="https://hub.docker.com/r/mkodockx/docker-clamav/">https://hub.docker.com/r/mkodockx/docker-clamav/</a> here <code>docker run -d --name clamav-server -p 3310:3310 mkodockx/docker-clamav</code></li>
+<li>Test that it’s running ok: <code>curl localhost:3310</code> <code>UNKNOWN COMMAND</code></li>
+<li>Start the REST API image, clamd-server docker container linked to this container. <code>docker run -d -e &#39;CLAMD_HOST=clamav-server&#39; -p 8080:8080 --link clamav-server:clamav-server -t -i lokori/clamav-rest</code></li>
+<li>Test the REST api: <code>curl localhost:8080</code> <code>Clamd responding: true</code></li>
+</ol>
+<p><strong>Testing the REST service</strong></p>
+<p>You can use <a target="_blank" rel="external nofollow noopener noreferrer" href="http://curl.haxx.se/">curl</a> as it’s REST. Here’s an example test session:</p>
+<figure class="highlight plaintext hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:8080</span><br><span class="line">Clamd responding: true</span><br><span class="line"></span><br><span class="line">curl -F &quot;name=blabla&quot; -F &quot;file=@./eicar.txt&quot; localhost:8080/scan</span><br><span class="line">Everything ok : false</span><br></pre></td></tr></table></figure>
+
+<p>EICAR is a test file which is recognized as a virus by scanners even though it’s not really a virus. Read more <a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.eicar.org/86-0-Intended-use.html">EICAR information here</a>.</p>
+<h2 id="3-Design-Dataflow-in-Nifi"><a href="#3-Design-Dataflow-in-Nifi" class="headerlink" title="3. Design Dataflow in Nifi"></a>3. Design Dataflow in Nifi</h2><p>In our previous discussion, we’ve setup nifi server. </p>
+<p>We’ll use three processor to make it working. <code>GetFile</code>, <code>ExecuteStreamCommand</code>, <code>RouteOnAttribute</code> and <code>PutFile</code>. <code>GetFile</code> and <code>PutFile</code> can be chnaged to any endpoint of your application. For example, we could get a file from SFTP and put file to HDFS. </p>
+<p><img src="/2019/11/20/nifi-virus-scanning/Nifi-Data-Flow.png" alt="Nifi-Data-Flow"></p>
+<p>I would like to focus on <code>ExecuteStreamCommand</code> becase rest of processors are straight forward. Please find more information about those processors from an offical <a target="_blank" rel="external nofollow noopener noreferrer" href="https://nifi.apache.org/">Apache Nifi Website</a>.</p>
+<p><code>ExecuteStreamCommand</code> will executes an external command on the contents of a flow file, and creates a new flow file with the results of the command. We will use Python. Therefore, when files are come from GetFile Nifi will execute a python script to check the virus via API from ClamAV server. You should install <code>python</code> properly in your Nifi server. </p>
+<p> ![ExecuteStreamCommand Configuration](/2019/11/20/nifi-virus-scanning/ExecuteStreamCommand Configuration.png)</p>
+<p>This is a configuration of <code>Command Arguments</code></p>
+<ol>
+<li><code>Command Path</code> is where your python command located.</li>
+<li><code>Working Directory</code> is where your python script is located.</li>
+<li><code>Command Arguments</code> is your python script</li>
+<li><code>OutPut Destination Attribute</code> Make sure that you define this value because we have to keep our content of file. By doing so we will write the result of scanning as an attribute. And then we will sort out files throught <code>RouteOnAttribute</code> processor. </li>
+</ol>
+<p>Let’s take a look our python script.</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> sys</span><br><span class="line"><span class="hljs-keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">if</span> __name__ ==<span class="hljs-string">&#x27;__main__&#x27;</span>:</span><br><span class="line">      url = <span class="hljs-string">&#x27;http://localhost:9090/scan&#x27;</span></span><br><span class="line">      payload = &#123;<span class="hljs-string">&#x27;name&#x27;</span>: <span class="hljs-string">&#x27;value1&#x27;</span>&#125;</span><br><span class="line">      systemin = sys.stdin</span><br><span class="line">      files = &#123;<span class="hljs-string">&#x27;file&#x27;</span>: systemin&#125;</span><br><span class="line">      r = requests.post(url, files=files, data=payload)</span><br><span class="line">      <span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;false&#x27;</span> <span class="hljs-keyword">in</span> r.text:</span><br><span class="line">         sys.stdout.write(<span class="hljs-string">&quot;False&quot;</span>)</span><br><span class="line">          </span><br><span class="line">      sys.stdout.write(<span class="hljs-string">&quot;True&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>If a file is clean, it will have an Attribute value <code>True</code>. If it’s not an attribute value will look like this <code>FalseTrue</code> . We will route our files based one this value. Let’s check the configuration of <code>RouteOnAttribute</code>.</p>
+<p><img src="/2019/11/20/nifi-virus-scanning/RouteOnAttribute.png" alt="RouteOnAttribute Configuration"></p>
+<p>It will let your nifi to send your files to next processor only if the files are clean. </p>
+<h2 id="4-Conclusion"><a href="#4-Conclusion" class="headerlink" title="4. Conclusion"></a>4. Conclusion</h2><p>It might not be only way to do this process. However, both Nifi and Clam are open source, so we don’t need to purchase any other license like Mcafee. Also with these simple tools we could process the files in realtime, and it works fairly well! Hopefully you enjoy this article. If you have a question or comment, you are very welcome to email me at any time. </p>
+<h5 id="References"><a href="#References" class="headerlink" title="References"></a>References</h5><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.tutorialspoint.com/apache_nifi/apache_nifi_introduction.html">link1</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://dev.solita.fi/2015/06/02/rest-virusscan.html">link2</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hub.docker.com/r/lokori/clamav-rest/">link3</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hub.docker.com/r/mkodockx/docker-clamav">link4</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/data-engineering/" rel="tag">Data Engineering</a><a class="tag -link-link" href="/tags/english/" rel="tag">English</a><a class="tag -link-link" href="/tags/security/" rel="tag">Security</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2019/12/07/encryption-decryption/">
+                <i class="fas fa-chevron-left"></i> 암호화복호화
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2019/11/19/sftp/">
+                Secure File Transfer Protocol (SFTP) <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-Usecase">
+        <span class="has-mr-6">1</span>
+        <span>1. Usecase</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-Setting-Nifi-Server">
+        <span class="has-mr-6">2</span>
+        <span>2. Setting Nifi Server</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Updating-and-Upgrading-apt-get">
+        <span class="has-mr-6">2.1</span>
+        <span>Updating and Upgrading apt-get</span>
+        </a></li><li>
+        <a class="is-flex" href="#Installing-Java-JRE">
+        <span class="has-mr-6">2.2</span>
+        <span>Installing Java (JRE)</span>
+        </a></li><li>
+        <a class="is-flex" href="#Installing-Nifi">
+        <span class="has-mr-6">2.3</span>
+        <span>Installing Nifi</span>
+        </a></li><li>
+        <a class="is-flex" href="#Set-JAVA-HOME">
+        <span class="has-mr-6">2.4</span>
+        <span>Set JAVA_HOME</span>
+        </a></li><li>
+        <a class="is-flex" href="#Start-Stop-Apache-Nifi">
+        <span class="has-mr-6">2.5</span>
+        <span>Start/Stop Apache Nifi</span>
+        </a></li><li>
+        <a class="is-flex" href="#Get-Started">
+        <span class="has-mr-6">2.6</span>
+        <span>Get Started</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#2-Setting-ClamAV-Server-at-rest">
+        <span class="has-mr-6">3</span>
+        <span>2. Setting ClamAV Server at rest</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-Design-Dataflow-in-Nifi">
+        <span class="has-mr-6">4</span>
+        <span>3. Design Dataflow in Nifi</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-Conclusion">
+        <span class="has-mr-6">5</span>
+        <span>4. Conclusion</span>
+        </a><ul class="menu-list"><ul class="menu-list"><li>
+        <a class="is-flex" href="#References">
+        <span class="has-mr-6">5.1.1</span>
+        <span>References</span>
+        </a></li></ul></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Realtime Virus Scanning" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Diffusion Based Video Compression - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/">
+
+
+    <meta name="description" content="Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playba">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Diffusion Based Video Compression">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playba">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/thumbnail.png">
+<meta property="article:published_time" content="2024-07-15T01:34:25.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.576Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Generative AI">
+<meta property="article:tag" content="Diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/thumbnail.png">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/07/15/diffusion-based-video-compression/">
+
+
+<link rel="alternative" href="/feed.xml" title="Diffusion Based Video Compression" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Diffusion Based Video Compression" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/2024/07/15/diffusion-based-video-compression/thumbnail.png" alt="Diffusion Based Video Compression">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2024-07-15T01:34:25.000Z">2024-07-14</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/2-project/">2. Project</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Diffusion Based Video Compression
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://drive.google.com/file/d/1zAPmyW9Mge0uZxeOFtyQ9lr1Dg4l4R43/view?usp=sharing"><img src="https://img.shields.io/badge/Paper-pdf-green.svg" alt="Paper"></a><br>Recent advances have enabled diffusion models to efficiently compress videos while maintaining high visual quality. By storing only keyframes and using these models to interpolate frames during playback, this method ensures high fidelity with minimal data. The process is adaptive, balancing detail retention and compression ratio, and can be conditioned on lightweight information like text descriptions or edge maps for improved results.</p>
+<span id="more"></span>
+
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>The rapid growth of digital video content across various platforms necessitates more efficient video compression technologies. Traditional compression methods struggle to balance compression efficiency with high visual fidelity. This blog post discusses a novel approach using diffusion-based models for adaptive video compression, showcasing substantial improvements in efficiency and quality.</p>
+<p><strong>Traditional Compression Challenges:</strong> Standard compression algorithms, like H.264/AVC, H.265/HEVC, and the newer H.266/VVC, primarily focus on reducing spatial and temporal redundancies. However, they often fall short when dealing with high-quality streaming requirements, particularly for content with complex textures or fast movements.</p>
+<p><strong>Breakthrough with Diffusion Models:</strong> Diffusion models, originally designed for image synthesis, have demonstrated potential in enhancing video compression. These models capture intricate image patterns, offering a paradigm shift from predictive to conditional frame generation.</p>
+<h1 id="Theoretical-Framework"><a href="#Theoretical-Framework" class="headerlink" title="Theoretical Framework"></a>Theoretical Framework</h1><p>This section delves into the mathematical foundations and technical descriptions of how diffusion models are applied to video compression.</p>
+<p><strong>Diffusion for Frame Generation:</strong> Diffusion models perform a forward process where noise is progressively added to the video frames, and a reverse process where this noise is removed to reconstruct the original video content, hence allowing for efficient frame prediction.</p>
+<p><strong>Video Compression via Diffusion:</strong> The core idea is to use the generative capabilities of diffusion models to predict future frames based on past frames, significantly reducing the need to transmit every frame.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/approach_diagram.png" alt title="Main Design Architecture" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 1: <strong>Main Design Architecture:</strong> A video streaming pipeline using our method: Identical diffusion models are placed at a host and client; a quality function to govern frames to send downstream; and compression using Matryoshka Representation Learning (MRL). Combining all these design features significantly increase reconstruction quality and reduce compression size</em>
+  </span>
+</div>
+<br>
+
+
+<h1 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h1><p>We introduce a unique approach that combines traditional video compression techniques with the advanced capabilities of diffusion models.</p>
+<p><strong>Adaptive Video Compression Using MCVD:</strong> Our method employs the Masked Conditional Video Diffusion (MCVD) model, which facilitates the generation of high-quality frames from masked past and future frames. This allows for dynamic adjustment of compression based on frame quality.</p>
+<p><strong>Integration of Matryoshka Representation Learning:</strong> To enhance compression further, we incorporate Matryoshka Representation Learning (MRL), which optimizes the encoding space and significantly reduces the size of data packets transmitted across networks.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 50%; max-height: 50%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/mrl_concept.png" alt title="Matryoshka Representation Learning" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 50%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 2: <strong>Matryoshka Representation Learning:</strong> Identical losses are calculated for each chunk of the embedding and then summed up (as shown on the left). This leads to better size-to-performance ratio on classification tasks (as shown on the right).</em>
+  </span>
+</div>
+<br>
+
+<h1 id="Experimental-Validation"><a href="#Experimental-Validation" class="headerlink" title="Experimental Validation"></a>Experimental Validation</h1><p>We conducted several experiments to validate the effectiveness of our proposed method against traditional compression standards.</p>
+<p><strong>Experimental Setup:</strong> The experiments were carried out using a dataset from the Kodak Image Suite, with metrics such as Bits Per Pixel (BPP) and Peak Signal to Noise Ratio (PSNR) used to evaluate performance.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 40%; max-height: 40%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/table1.png" alt title="Extreme image compression on Kodak images" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 40%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 3: <strong>Extreme image compression on Kodak images:</strong> Our method can reconstruct the image with much smaller bpps on a universal test image, Kodak.</em>
+  </span>
+</div>
+<br>
+
+<p><strong>Results:</strong> Our results, seen in <code>Figure 3</code>, exemplify MRL improves the image compression without loss of reconstructive quality. We use the same NIC model in our video streaming application, where due to limited infrastructure, we use a pre-trained MCVD diffusion model trained on a Cityscape dataset. Our method shows comparable video reconstruction performance, measured in PSNR, with <em>lower</em> bits-per-pixel (BPP)s, signifying greater compression without performance loss. Our main results are shown in <code>Figure 4</code> and <code>Figure 6</code>.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 50%; max-height: 50%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/avg_bpp_vs_avg_psnr.png" alt title="Extreme video compression with higher performance" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 50%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 4: <strong>Extreme video compression with higher performance:</strong> Our method has a higher compression rate with better performance than the benchmark. Colored circles represent variance around the mean values for 40 sample videos, with blue for the benchmark and orange for our method.</em>
+  </span>
+</div>
+<br>
+
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 60%; max-height: 60%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/wrt_dim.png" alt title="Better video reconstruction with a higher compression rate" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 60%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 5: <strong>Better video reconstruction with a higher compression rate:</strong> Given small embedding dimensions, 50 and 100, our method can reconstruct better video with smaller bpps.</em>
+  </span>
+</div>
+<br>
+
+<p>We first compare our method to DBVC with respect to the size of the dimension.  Our experiment shows that given a small dimension, our method can have much higher PSNRs and lower BPPs, as shown in <code>Figure 5</code>. Our results also illustrate that our method has a higher compression rate due to MRL reducing the encoded vector size, which induces a lower BPP.</p>
+<p>Next, we compare the overall performance of our method against the benchmark, DBVC, through the BPP and PSNR metrics.<br>Our method has an ~8% higher average PSNR than the benchmark for the same compression rate, shown in <code>Figure 4</code>. Upon careful examination, we can see improvements of nearly 30% for smaller dimensions and larger BPPs.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 90%; max-height: 90%; height: auto;">
+    <img src="/2024/07/15/diffusion-based-video-compression/bpp_psnr.png" alt title="Ablation across encoding dimension size" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 90%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 6: <strong>Ablation across encoding dimension size:</strong> Our method outperforms the baseline for lower encoded dimension size at the cost of a slightly reduced PSNR.</em>
+  </span>
+</div>
+<br>
+
+
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>The integration of diffusion models into video compression marks a significant advancement in multimedia technologies. By leveraging these models, we can significantly reduce the bandwidth required for high-quality video streaming. The next steps include optimizing these models for real-time processing and exploring their applications in live video feeds.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/artificial-intelligence/" rel="tag">Artificial Intelligence</a><a class="tag -link-link" href="/tags/diffusion/" rel="tag">Diffusion</a><a class="tag -link-link" href="/tags/generative-ai/" rel="tag">Generative AI</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-item card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/03/16/distill-diffusion/">
+                Distill Diffusion <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Introduction">
+        <span class="has-mr-6">1</span>
+        <span>Introduction</span>
+        </a></li><li>
+        <a class="is-flex" href="#Theoretical-Framework">
+        <span class="has-mr-6">2</span>
+        <span>Theoretical Framework</span>
+        </a></li><li>
+        <a class="is-flex" href="#Methodology">
+        <span class="has-mr-6">3</span>
+        <span>Methodology</span>
+        </a></li><li>
+        <a class="is-flex" href="#Experimental-Validation">
+        <span class="has-mr-6">4</span>
+        <span>Experimental Validation</span>
+        </a></li><li>
+        <a class="is-flex" href="#Conclusion">
+        <span class="has-mr-6">5</span>
+        <span>Conclusion</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Diffusion Based Video Compression" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

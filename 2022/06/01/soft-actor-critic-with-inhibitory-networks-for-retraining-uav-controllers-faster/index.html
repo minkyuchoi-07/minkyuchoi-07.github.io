@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/">
+
+
+    <meta name="description" content="Minkyu Choi, Max Filter, Kevin, Alcedo, Thayne T. Walker, David Rosenbluth, and Jaime S. Ide.International Conference on Unmanned Aircraft Systems (ICUAS), 2022 The rapid evolution in autonomous unman">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Minkyu Choi, Max Filter, Kevin, Alcedo, Thayne T. Walker, David Rosenbluth, and Jaime S. Ide.International Conference on Unmanned Aircraft Systems (ICUAS), 2022 The rapid evolution in autonomous unman">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/thumbnail.png">
+<meta property="article:published_time" content="2022-06-01T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.448Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/thumbnail.png">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/">
+
+
+<link rel="alternative" href="/feed.xml" title="Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/thumbnail.png" alt="Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2022-06-01T04:00:00.000Z">2022-06-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/1-research/">1. Research</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://ieeexplore-ieee-org.ezproxy.lib.utexas.edu/document/9836052"><img src="https://img.shields.io/badge/Paper-IEEE-green.svg" alt="Paper"></a><br><strong>Minkyu Choi</strong>, Max Filter, Kevin, Alcedo, Thayne T. Walker, David Rosenbluth, and Jaime S. Ide.<br><em>International Conference on Unmanned Aircraft Systems (ICUAS), 2022</em></p>
+<p>The rapid evolution in autonomous unmanned aerial vehicles (UAVs) technology has spurred significant advancements in their control systems. A prominent challenge in this domain is balancing the agility of Proportional-Integral-Derivative (PID) systems for low-level control with the adaptability of Deep Reinforcement Learning (DRL) for navigation through complex environments. This post delves into a novel approach that combines these technologies to improve the retraining efficiency of UAV controllers using Soft Actor-Critic (SAC) with inhibitory networks.</p>
+<span id="more"></span>
+
+<h2 id="Introduction-to-UAV-Control-Systems"><a href="#Introduction-to-UAV-Control-Systems" class="headerlink" title="Introduction to UAV Control Systems"></a>Introduction to UAV Control Systems</h2><p>Autonomous UAVs benefit immensely from DRL due to its ability to handle nonlinear airflow effects caused by multiple rotors and to operate in uncertain environments such as those with wind and obstacles. Traditional DRL methods have shown success in training efficient UAV navigation systems. However, real-world applications often necessitate retraining these systems to adapt to new, more challenging tasks.</p>
+<h2 id="The-Challenge-of-Retraining-in-DRL"><a href="#The-Challenge-of-Retraining-in-DRL" class="headerlink" title="The Challenge of Retraining in DRL"></a>The Challenge of Retraining in DRL</h2><p>One significant issue with traditional DRL algorithms like SAC is catastrophic forgetting, where previously learned skills are lost when the system is retrained for new tasks. This problem is especially pronounced in dynamic environments where UAVs must quickly adapt to new challenges without losing their established navigation capabilities.</p>
+<h2 id="Introducing-Soft-Actor-Critic-with-Inhibitory-Networks-SAC-I"><a href="#Introducing-Soft-Actor-Critic-with-Inhibitory-Networks-SAC-I" class="headerlink" title="Introducing Soft Actor-Critic with Inhibitory Networks (SAC-I)"></a>Introducing Soft Actor-Critic with Inhibitory Networks (SAC-I)</h2><p>Inspired by mechanisms in cognitive neuroscience, the proposed SAC-I approach addresses this retraining challenge. Inhibitory control in neuroscience refers to the brain’s ability to modify ongoing actions in response to changing task demands. Similarly, SAC-I utilizes separate and adaptive state value evaluations along with distinct automatic entropy tuning.</p>
+<h3 id="Key-Components-of-SAC-I"><a href="#Key-Components-of-SAC-I" class="headerlink" title="Key Components of SAC-I"></a>Key Components of SAC-I</h3><ul>
+<li><strong>Multiple Value Functions:</strong> SAC-I employs multiple value functions that operate in a state-dependent manner. This allows the system to retain knowledge of familiar situations while adapting to new ones without forgetting previously learned skills.</li>
+<li><strong>Inhibitory Networks:</strong> An additional value network, termed the inhibitory network, is introduced. This network specifically learns new evaluations required for novel tasks, thus preventing interference with the previously learned value network.</li>
+<li><strong>Dual Entropy Estimation:</strong> The approach also includes estimating two distinct entropy parameters to manage the exploration-exploitation trade-off more effectively during retraining.</li>
+</ul>
+<h2 id="Experimental-Validation"><a href="#Experimental-Validation" class="headerlink" title="Experimental Validation"></a>Experimental Validation</h2><p>The efficacy of SAC-I was validated through experiments using a simulated quadcopter in a high-fidelity environment. The results demonstrated that SAC-I significantly accelerates the retraining process compared to standard SAC methods. Key metrics such as sample efficiency and cumulative success rates were used to benchmark the performance.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/figure1.png" alt title="Figure 1" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 1: Takeoff-Target-Aviary-v0 task with obstacle. Go episode: agent starts at (0,0,0.11) and it has to reach and hover around target point at (0, 0, 0.7). Stop episode: obstacle appears randomly after the episode starts, and agent has to avoid it and reach the target.</em>
+  </span>
+</div>
+<br>
+
+<h3 id="Results-Summary"><a href="#Results-Summary" class="headerlink" title="Results Summary"></a>Results Summary</h3><ul>
+<li><strong>Faster Retraining:</strong> SAC-I agents showed a remarkable reduction in the time required for retraining, achieving new task proficiency up to five times faster than standard SAC agents.</li>
+<li><strong>Improved Sample Efficiency:</strong> The novel approach maintained high levels of sample efficiency, crucial for practical applications where real-world data collection is expensive and time-consuming.</li>
+</ul>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/figure2.png" alt title="Figure 2" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 2: <strong>Average reward during agents training.</strong></em>
+  </span>
+</div>
+<br>
+
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="/2022/06/01/soft-actor-critic-with-inhibitory-networks-for-retraining-uav-controllers-faster/figure3.png" alt title="Figure 3" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em>Figure 3: <strong>Cumulative success during agents training.</strong></em>
+  </span>
+</div>
+<br>
+
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>SAC-I presents a groundbreaking advancement in the retraining of UAV controllers. By leveraging inhibitory networks inspired by cognitive control mechanisms, this approach ensures rapid adaptation to new tasks while preserving established skills. This innovation holds significant promise for real-world UAV applications, where quick adaptation to changing environments is critical.</p>
+<h2 id="Future-Directions"><a href="#Future-Directions" class="headerlink" title="Future Directions"></a>Future Directions</h2><p>Further research will focus on extending this approach to other DRL algorithms and applying it to more complex and dynamic UAV tasks. Additionally, improving the auto-tuning methods for entropy parameters will enhance the stability and performance of SAC-I in various applications.</p>
+<h2 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h2><figure class="highlight plaintext hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@INPROCEEDINGS&#123;9836052,</span><br><span class="line">  author=&#123;Choi, Minkyu and Filter, Max and Alcedo, Kevin and Walker, Thayne T. and Rosenbluth, David and Ide, Jaime S.&#125;,</span><br><span class="line">  booktitle=&#123;2022 International Conference on Unmanned Aircraft Systems (ICUAS)&#125;, </span><br><span class="line">  title=&#123;Soft Actor-Critic with Inhibitory Networks for Retraining UAV Controllers Faster&#125;, </span><br><span class="line">  year=&#123;2022&#125;,</span><br><span class="line">  volume=&#123;&#125;,</span><br><span class="line">  number=&#123;&#125;,</span><br><span class="line">  pages=&#123;1561-1570&#125;,</span><br><span class="line">  keywords=&#123;Training;Neuroscience;Parameter estimation;Transfer learning;Reinforcement learning;Autonomous aerial vehicles;Entropy;deep reinforcement learning;soft actor-critic;transfer learning;UAV navigation;quadcopter simulation&#125;,</span><br><span class="line">  doi=&#123;10.1109/ICUAS54217.2022.9836052&#125;&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/artificial-intelligence/" rel="tag">Artificial Intelligence</a><a class="tag -link-link" href="/tags/reinforcement-learning/" rel="tag">Reinforcement Learning</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2023/03/20/feudal/">
+                <i class="fas fa-chevron-left"></i> FeUdal Networks for Hierarchical Reinforcement Learning
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2020/04/02/boosting/">
+                Boosting (AdbBoost) <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Introduction-to-UAV-Control-Systems">
+        <span class="has-mr-6">1</span>
+        <span>Introduction to UAV Control Systems</span>
+        </a></li><li>
+        <a class="is-flex" href="#The-Challenge-of-Retraining-in-DRL">
+        <span class="has-mr-6">2</span>
+        <span>The Challenge of Retraining in DRL</span>
+        </a></li><li>
+        <a class="is-flex" href="#Introducing-Soft-Actor-Critic-with-Inhibitory-Networks-SAC-I">
+        <span class="has-mr-6">3</span>
+        <span>Introducing Soft Actor-Critic with Inhibitory Networks (SAC-I)</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Key-Components-of-SAC-I">
+        <span class="has-mr-6">3.1</span>
+        <span>Key Components of SAC-I</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Experimental-Validation">
+        <span class="has-mr-6">4</span>
+        <span>Experimental Validation</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Results-Summary">
+        <span class="has-mr-6">4.1</span>
+        <span>Results Summary</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Conclusion">
+        <span class="has-mr-6">5</span>
+        <span>Conclusion</span>
+        </a></li><li>
+        <a class="is-flex" href="#Future-Directions">
+        <span class="has-mr-6">6</span>
+        <span>Future Directions</span>
+        </a></li><li>
+        <a class="is-flex" href="#Citation">
+        <span class="has-mr-6">7</span>
+        <span>Citation</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Soft Actor Critic with Inhibitory Networks for Retraining UAV Controllers Faster" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

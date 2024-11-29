@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Distill Reinforcement Learning - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2023/04/02/distill-rl/">
+
+
+    <meta name="description" content="Distilling Reinforcement Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Distill Reinforcement Learning">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2023/04/02/distill-rl/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Distilling Reinforcement Learning">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2023-04-02T21:07:40.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.457Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="English">
+<meta property="article:tag" content="Reinforcement Learning">
+<meta property="article:tag" content="Distill Series">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2023/04/02/distill-rl/">
+
+
+<link rel="alternative" href="/feed.xml" title="Distill Reinforcement Learning" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Distill Reinforcement Learning" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2023-04-02T21:07:40.000Z">2023-04-02</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Distill Reinforcement Learning
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>Distilling Reinforcement Learning</p>
+<span id="more"></span>
+
+<h1 id="What-is-Reinforcement-Learning"><a href="#What-is-Reinforcement-Learning" class="headerlink" title="What is Reinforcement Learning"></a>What is Reinforcement Learning</h1><p>Consider an agent situated in an unfamiliar setting, capable of garnering rewards through engagment with its surroundings. The agent’s objective is to perform actions that optimize the accumulation of rewards. Practical examples of this concept incldue a gaming bot striving for top scors or a robot executing physical tasks with tanglible objects, although the possibilities extend beyond these instances. </p>
+<p>The primary objective of Reinforcement Learning (RL) is to develop an effective strategy for an agent through iterative trials and straightforward feedback. By emplying the optimial strategy, the agent can dynamically adpat to the environment, thereby maximizing future rewards. </p>
+<p>Let’s delve into some fundamental concepts in RL. </p>
+<p>An agent operates within an environment, and the way the environment, and the way the environment reacts to specific actions is dictacted by a model, which may be known or unknown to us. The agent can occupy on of many state ($s \in S$) within the environment and choose to take one of several actions ($a \in A$) to transition between states. The transition probabilities between state (P) determine the agents’ destination state. Upon taking an action, the environment offers a reward ($r \in R$) as feedback. </p>
+<p>The model outlines the reward function and transition probabilities. Depending on whether we know the model’s working or not, there are two distnct situations. </p>
+<p><strong>Known Model:</strong> Execute model-based RL with perfect inffomration for planning. When the environment is fully understood, the optimal solution can be found using Dynamic Programming (DP). This is reminiscent of solving problems such as the “longest increasing subsequence” or “traveling salesman problem.”</p>
+<p><strong>Unknown Model:</strong> Perform model-free RL or attempt to explicitly learn the model as part of the algorithm, given that information is incomplete. The majority of the subsequent content addresses scenarios where the model is unknown. </p>
+<p>The agent’s policy, $\pi(s)$, offeres guidance on the optimal action to take in a specific state to maximize total rewards. Each state is linked to a value function, $V(s)$, which forecasts the anticipated amount of future rewards obtainable in that state by following the corresponding policy. In essence, the value funcution measures a state’s quality. Both policy and value functions are the targets of reinforcement learning. </p>
+<p>The interaction between the agent and the environment involves a series of actions and observed reward over time, $t = 1,2, …, T$. Throughout this process, the agent accumulates knowledge about the environment, learns the optimial policy, and decides on the next action to take to efficiently learn the best policy. Let’s denote the state, action, and reward at time step $t$ as $S_t, A_t$ and $R_t$ respectively. Therefore, the interaction sequence is fully represented by a single <strong>episode</strong> (also referred to as “trial” or “trajectory”) that concludes at the terminal state $S_T$:<br>$$<br>S_1, A_1,R_1,S_2,A_2,R_2,…,S_T<br>$$</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>The model serves as a representation of the environment, enabling us to understand or deduce how the environment interacts with and offers feedback to the agent. The model consists of two primary components: the transition probability function $P$ and the reward function $R$.</p>
+<p>Consider a situation where we are in state $s$ and decide to take action $a$, leading to the next state <code>s&#39;</code> and receiving reward <code>r</code>. This single transtion step is denoted by the tuple $(s, a, s’, r)$.</p>
+<p>The transition function $P$ documents the likelihood of transitioning from state <code>s</code> to <code>s&#39;</code> upon taking action <code>a</code> and acquiring reward $r$. $\mathbb{P}$ symbolizes “probability” in this context.<br>$$<br>P(s’,r|s,a) = \mathbb{P}[S_{t+1}=s’, R_{t+1}=r|S_t=s, A_t=a]<br>$$<br>Thus, the state=transition function can be defined as a function of $P(s’, r|s,a):$<br>$$<br>P_{ss’}^a =P(s’|s,a)=\mathbb{P}[S_{t+1}=s’,|S_t=s, A_t=a]=\sum_{r \in R}P(s’,r|s,a)<br>$$<br>The reward function R is obtained by the next reward triggered by an action:<br>$$<br>R(s,a) = \mathbb{E}[R_{t+1}|S_t=s, A_t=a]=\sum_{r \in R}r\sum_{s’\in S}P(s’,r|s,a)<br>$$<br><strong>Model-Based vs Model-free:</strong></p>
+<p>Model-based methods rely on constructing and utilizing a model of the environment to plan and make decions, while model-free methods learn the optimal policy directly from the agent’s experiences without building an explicit model. Each approach has its own advantages and disadvantages, depending on the problem and environment at hand</p>
+<ul>
+<li><strong>Model-based:</strong> It relies on building an explicit model of the environment, which includes transition probabilities (how the environment changes with actions) and reward functions. It uses the model to plan and make decisions, siulating potential future scenarios to find the optimal policy. It can be more sample-efficient, as it leverages the environment’s model to learn faster and require fewer interactions with the environment. However, building an accurate model can be challenging, particularly for complex environments with large state and action spaces. Example: Dynamic Programming techniques like Value Iteration and Policy Iteration</li>
+<li><strong>Model-free:</strong> It does not rely on explicit model of the environment; instead, it learns the optimal policy directly from the agent’s experiences (state transitions and rewards). It learns through trial-and-error, using techniques like Temporal Difference learning or Monte Carlo methods. This method can be more straightforward to implement, as they do not require an explicit model of the environment, making them suitable for complex and high-dimensional environments. However, they might require more interations with the environment to learn the optimal policy, making them less sample-efficient. Example: Q-Learning, SARSA, and Actor-Critic algorithms. </li>
+</ul>
+<h2 id="Policy"><a href="#Policy" class="headerlink" title="Policy"></a>Policy</h2><p>A policy, denoted as the agent’s behavior function $\pi$, provides guidance on which action to take in a given state $s$. It represents a mapping from state $s$ to action $a$ and can be either deterministic or stochastic:</p>
+<ul>
+<li>Deterministic: $\pi(s)=a$</li>
+<li>Stochastic: $\pi(a|s)= \mathbb{P}_{\pi}[A=a|S=s]$ </li>
+</ul>
+<p><strong>On-policy vs Off-policy:</strong></p>
+<p>On-policy methods learn directly from the agent’s interactions with the environment while adhearing to the current policy. In contrast, off-policy methods learn from experiences generated by a different policy, allowing for greater flexibility and more efficient learning from a diverse set of experiences.</p>
+<ul>
+<li><strong>On-policy:</strong> On-policy methods learn the value function and policy by using the same policy for both exploration and exploitation. Thy follow the current policy while making decisions and simultaneously update the policy based on the experiences gathered. These methods usually strike a balance between exploration and exploitation during learning.</li>
+<li><strong>Off-policy:</strong> It separate the policy used for learning (target policy) from the policy used for exploration (behavior policy). The behavior policy is responsible for generating experiences, while the target policy is updated based on the experiences collected by the behavior policy. This separation allows off-policy methods to learn from a wider range of experiences, including historical data or experiences from other agents. </li>
+</ul>
+<h2 id="Value-Function"><a href="#Value-Function" class="headerlink" title="Value Function"></a>Value Function</h2><p>The value function represents the expected cumulative reward that an agent can obtain, starting from a specific state and following a given policy. The value function helps the agent to estimate the long-term value of each state, considering future rewards it may receive by taking actions according to the policy. It is a key concept in RL, as it helps guid the agent’s decision-making process to maximize the total reward over time.  Let’s compute the return $G_t$ starting from time $t$:<br>$$<br>G_t = R_{t+1} + \gamma R_{t+2} + … \sum_{k=0}^{\infty}\gamma R_{t+k+1}<br>$$<br>The discount factor $\gamma$ which ranges from 0 to 1, discounts future rewars for several reasons:</p>
+<ol>
+<li>Future reward may be more uncertain</li>
+<li>Immediate rewards are oftern more appealing than delayed gratification, as humans tend to prefer to enjoying themselves now rather than waiting for years</li>
+<li>Discounting offeres mathematical simplicity, as it eliminates the need to account for infinite future steps when calculating returns </li>
+<li>It helps mitigate concerns about infinite loops in the state transition graph, ensuring the agent converges on an optimal policy</li>
+</ol>
+<p><strong>State-value function ($V(s)$):</strong> This function estimates the expected cumulative reward when starting from state $s$ and <code>following a particular policy</code>. It considers the value of the current state without taking into account the immediate action the agent will take.<br>$$<br>V_{\pi}(s) = \mathbb E_{\pi}[G_t|S_t=s]<br>$$<br><strong>Action-value function($Q(s,a)$):</strong> This function estimates the expectued cumulative reward when starting from state $s$, taking action $a$, and then <code>following a particular policy</code>. It considers the value of the current state-action pair, accouting for both the state and the action the agent will take.<br>$$<br>Q_{\pi}(s,a) = \mathbb E_{\pi}[G_t|S_t=s, A_t=a]<br>$$<br>Furthermore, when following the target policy $\pi$ we can leverage the probability destribution over possible actions and the Q-values to derive the state-value:<br>$$<br>V_{\pi}(s)=\sum_{a \in A}Q_{\pi}(s,a) \pi (a|s)<br>$$<br>The action advantage function, also known as the “A-value,” represents the difference between the action-value (Q-value) and state-value (V-value). The function quantifies the relative benefit of taking a specific acion in a given state, compared to the average value of that state following the target policy. By calculating the A-value, we can identify which actions are advantageous or disadvantageous in a particular state, guiding the agent’s decision-making process for improved performance.<br>$$<br>A_{\pi}(s,a) = Q_{\pi}(s,a)- V_{\pi}(s)<br>$$</p>
+<h2 id="Markov-Decision-Processes"><a href="#Markov-Decision-Processes" class="headerlink" title="Markov Decision Processes"></a>Markov Decision Processes</h2><p>In more formal terms, the majority of reinforcement learning problems can be formulated as Markov Decision Processes (MDPs). All states in an MDP exhibit the “Markov” property, which means that the future depends solely on the current state, rather than the entire history:<br>$$<br>\mathbb{P}[S_{t+1} | S_t] = \mathbb{P}[S_{t+1} | S_1, …, S_t]<br>$$<br>In other words, given the present state, the future and the past are conditionally independent. This is because the current state contains all the necessary information to determine future outcomes. A Markove decision process can be defined as $\mathcal{M} =&lt;\mathcal{S},\mathcal{A},\mathcal{P},\mathcal{R}, \gamma&gt;$, where:</p>
+<ul>
+<li>$\mathcal{S}$: a set of states;</li>
+<li>$\mathcal{A}$: a set of actions;</li>
+<li>$\mathcal{P}$: transition probability function;</li>
+<li>$\mathcal{R}$: reward function;</li>
+<li>$\gamma$: the discount factor is used to account for future rewards. In an unfamilar environment, we lack complete information about the transition probabilities ($\mathcal{P}$) and reward function ($\mathcal{R}$). </li>
+</ul>
+<h2 id="Bellman-Equations"><a href="#Bellman-Equations" class="headerlink" title="Bellman Equations"></a>Bellman Equations</h2><p>Bellman equations are essential in RL because they provide a systematic way to decompose and solve complex decision-making problems. They underpin many widely-used RL algorithms and help acheive optimality and convergence to effective policies - more reasons:</p>
+<p><strong>Optimal Substructure:</strong> Bellman equations exploit the fact that optimal solutions can be built from optimal-sub solutions. This property allows RL algorithms to find the best actions to take in any given state by decomposing complex problems into simpler sub-problems. </p>
+<p><strong>Dynamic Programming:</strong> Bellman equations form the foundation of dynamic programming techinques such as Value Iteration and Policy Iteration. These technique are used to compute optimal policies by iteratively updating state values or action values until convergence.</p>
+<p><strong>Temporal Difference Learning:</strong> Bellman equations are a key component of temporal difference learning algorithm like Q-learning and State-Action-Reward-State-Action (SARSA). These algorithms use the difference between successive state values to update the value estimates, which allows them to learn online and incrementally from experience.</p>
+<p><strong>Convergence to Optimal Policies:</strong> The recursive nature of the Bellman equations ensures that algorithms based on them can find optimal policies, provided certain conditions are met (like sufficient exploration). This guarantee of optimality is an attractive feature for solving complex decision-making problems. </p>
+<p><strong>Markov Decision Processes:</strong> Bellman equations enable the modeling of RL problems as Markov Decision Processes (MDPs), where the optimal decision-making process depends only on the current state and not the history. This simplificiation allows for efficient computation and generalization across a wide range or problems. </p>
+<p>The value function can be broken down into the immediate reward combined with the discounted future values.<br>$$<br>\begin{flalign<em>}<br>v(s) &amp; = \mathbb{E}[G_t|S_t=s] \<br>          &amp; = \mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+…|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma(R_{t+2}+\gamma R_{t+3}+…)|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma G_{t+1}|S_t=s] \<br>         &amp; =\mathbb{E}[R_{t+1}+\gamma V(S_{t+1})|S_t=s] \<br>\end{flalign</em>}<br>$$</p>
+<p>$$<br>\begin{flalign<em>}<br>Q(s,a) &amp; =\mathbb{E}[R_{t+1}+\gamma V(S_{t+1})|S_t=s, A_t=a] \<br>&amp; = \mathbb{E}[R_{t+1}+\gamma \mathbb{E}<em>{a \backsim \pi}Q(S</em>{t+1}, a) | S_t=s, A_t = a]<br>\end{flalign</em>}<br>$$<br>The above recursive update process can be further separated into equations based on both state-value and action-value functions. As we progress through future action steps, we alternately extend $V$ and $Q$ by adhearing to the policy  $\pi$</p>
+<h1 id="Meta-Reinforcement-Learning"><a href="#Meta-Reinforcement-Learning" class="headerlink" title="Meta Reinforcement Learning"></a>Meta Reinforcement Learning</h1><p>A robust meta-learning model should effectively generalize to novel tasks or environments, even those it hasn’t encountered during training. Minimal adaptation should occur during testing with limited exposure. Ideally, the model should self-adjust its internal hidden states to learn without requiring explicit fine-tuning (no gradient backpropagation on trainable variables). </p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://lilianweng.github.io/posts/2018-04-08-policy-gradient/">https://lilianweng.github.io/posts/2018-04-08-policy-gradient/</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://towardsdatascience.com/policy-gradients-in-reinforcement-learning-explained-ecec7df94245">https://towardsdatascience.com/policy-gradients-in-reinforcement-learning-explained-ecec7df94245</a></p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://towardsdatascience.com/proximal-policy-optimization-ppo-explained-abed1952457b">https://towardsdatascience.com/proximal-policy-optimization-ppo-explained-abed1952457b</a></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/distill-series/" rel="tag">Distill Series</a><a class="tag -link-link" href="/tags/english/" rel="tag">English</a><a class="tag -link-link" href="/tags/reinforcement-learning/" rel="tag">Reinforcement Learning</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2023/07/01/multi-agent-reinforcement-learning-with-epistemic-priors/">
+                <i class="fas fa-chevron-left"></i> Multi-Agent Reinforcement Learning with Epistemic Priors
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2023/03/20/feudal/">
+                FeUdal Networks for Hierarchical Reinforcement Learning <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#What-is-Reinforcement-Learning">
+        <span class="has-mr-6">1</span>
+        <span>What is Reinforcement Learning</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Model">
+        <span class="has-mr-6">1.1</span>
+        <span>Model</span>
+        </a></li><li>
+        <a class="is-flex" href="#Policy">
+        <span class="has-mr-6">1.2</span>
+        <span>Policy</span>
+        </a></li><li>
+        <a class="is-flex" href="#Value-Function">
+        <span class="has-mr-6">1.3</span>
+        <span>Value Function</span>
+        </a></li><li>
+        <a class="is-flex" href="#Markov-Decision-Processes">
+        <span class="has-mr-6">1.4</span>
+        <span>Markov Decision Processes</span>
+        </a></li><li>
+        <a class="is-flex" href="#Bellman-Equations">
+        <span class="has-mr-6">1.5</span>
+        <span>Bellman Equations</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Meta-Reinforcement-Learning">
+        <span class="has-mr-6">2</span>
+        <span>Meta Reinforcement Learning</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#References">
+        <span class="has-mr-6">2.1</span>
+        <span>References</span>
+        </a></li></ul></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Distill Reinforcement Learning" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

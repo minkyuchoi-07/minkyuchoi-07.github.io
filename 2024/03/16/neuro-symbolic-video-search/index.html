@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Neuro Symbolic Video Search with Temporal Logic - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/">
+
+
+    <meta name="description" content="Minkyu Choi, Harsh Goel, Mohammad Omama, Yunhao, Yang, Sahil Shah, and Sandeep ChinchaliEuropean Conference on Computer Vision (ECCV), 2024">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neuro Symbolic Video Search with Temporal Logic">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Minkyu Choi, Harsh Goel, Mohammad Omama, Yunhao, Yang, Sahil Shah, and Sandeep ChinchaliEuropean Conference on Computer Vision (ECCV), 2024">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/assets/images/teaser.gif">
+<meta property="article:published_time" content="2024-03-16T23:15:50.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.466Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Neuro-symbolic AI">
+<meta property="article:tag" content="Computer Vision">
+<meta property="article:tag" content="Formal Method">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/assets/images/teaser.gif">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/">
+
+
+<link rel="alternative" href="/feed.xml" title="Neuro Symbolic Video Search with Temporal Logic" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Neuro Symbolic Video Search with Temporal Logic" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/assets/images/teaser.gif" alt="Neuro Symbolic Video Search with Temporal Logic">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2024-03-16T23:15:50.000Z">2024-03-16</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/1-research/">1. Research</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Neuro Symbolic Video Search with Temporal Logic
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/abs/2403.11021"><img src="https://img.shields.io/badge/Paper-PDF-green.svg" alt="Paper"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/abs/2403.11021"><img src="https://img.shields.io/badge/arXiv-2403.11021-b31b1b.svg" alt="arXiv"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://utaustin-swarmlab.github.io/nsvs-project-page.github.io/"><img src="https://img.shields.io/badge/ProjectWebpage-NSVS--TL-orange.svg" alt="Website"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UTAustin-SwarmLab/Neuro-Symbolic-Video-Search-Temporal-Logic"><img src="https://img.shields.io/badge/Code-NSVS--TL-blue.svg" alt="GitHub"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UTAustin-SwarmLab/Temporal-Logic-Video-Dataset"><img src="https://img.shields.io/badge/Code-TLV--Dataset-blue.svg" alt="GitHub"></a><br><strong>Minkyu Choi</strong>, Harsh Goel, Mohammad Omama, Yunhao, Yang, Sahil Shah, and Sandeep Chinchali<br><em>European Conference on Computer Vision (ECCV), 2024</em></p>
+<span id="more"></span>
+
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Imagine if I asked you to locate the iconic “I am flying” scene from the 3-hour-long Titanic movie. This scene is a complex symphony of multiple semantic events and their long-term temporal relations. Modern state-of-the-art (SOTA) activity recognition networks, which couple semantic reasoning and temporal logic, surprisingly fail at long-term reasoning across frames. Is there a way to decouple the two for effective long-term video understanding? </p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 90%; max-height: 70%; height: auto;">
+    <img src="teaser_2.gif" alt title="Figure 5" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+  </span>
+</div>
+<br>
+
+<p><strong>Introducing NSVS: Neuro-Symbolic Video Search</strong>. Our recent paper, accepted at ECCV 2024, tackles this problem and outperforms competing baselines by 9-15% on state-of-the-art datasets such as Waymo and NuScenes.</p>
+<h2 id="Why-do-we-need-long-term-reasoning-in-videos"><a href="#Why-do-we-need-long-term-reasoning-in-videos" class="headerlink" title="Why do we need long-term reasoning in videos?"></a>Why do we need long-term reasoning in videos?</h2><p>There has been a significant increase in video data production, with platforms such as YouTube receiving 500 hours of uploads every minute. Additionally, autonomous vehicle companies like Waymo generate 10-100 TB of data daily, and worldwide security cameras record around 500 PB daily. Consequently, we require tools with sophisticated query capabilities to navigate this immense volume of video content.</p>
+<p>For instance, a query such as “Find me all scenes where event A happened, event B did not occur, and event C occurs hours later” requires advanced methods capable of long-term temporal reasoning. Such long-term reasoning is a common use case in surveillance, video analysis, and similar fields that existing video foundation models fail to address.</p>
+<h2 id="Why-do-existing-methods-fail-at-long-term-reasoning-in-videos"><a href="#Why-do-existing-methods-fail-at-long-term-reasoning-in-videos" class="headerlink" title="Why do existing methods fail at long-term reasoning in videos?"></a>Why do existing methods fail at long-term reasoning in videos?</h2><p>Our key insight is that video foundation models intertwine per-frame perception and temporal reasoning into a single deep network. This makes it difficult for them to understand temporal nuances over the long term. Hence, decoupling but co-designing semantic understanding and temporal reasoning is essential for efficient scene identification. We propose a system that<br>leverages vision-language models for semantic understanding of individual frames but effectively reasons about the long-term evolution of events using state machines and temporal logic (TL) formulae that inherently capture memory. </p>
+<p>The figure below shows comparative performance on the event identification tasks. The accuracy of event identification with Video Language Models (Blue/Green) drops as video length or query complexity increases. On the other hand, NSVS (Orange) shows consistent performance irrespective of video length or query complexity.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="figure1.png" alt title="Figure 1" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em><strong>Fig. 1 Comparative Performance on the Event Identification Task: Video Language Models versus <span style="font-style: normal;">NSVS-TL</span>.</strong> The accuracy of event identification with Video Language Models (Blue/Green) drops as video length or query complexity increases. In contrast, <span style="font-style: normal;">NSVS-TL</span> (Orange) shows consistent performance irrespective of video length or query complexity.</em>
+  </span>
+</div>
+<br>
+
+
+<h2 id="NSVS-Demystified"><a href="#NSVS-Demystified" class="headerlink" title="NSVS - Demystified"></a>NSVS - Demystified</h2><p>We attribute the consistent performance of NSVS observed in the above figure to the decoupling of per-frame semantic understanding and temporal reasoning.  While we plug and play off-the-shelf foundation models like YOLO, CLIP, or LLAVA for semantic understanding, we build upon the massive literature on Formal Methods using state machines and temporal logic (TL) formulae for temporal reasoning.  </p>
+<p>Formal Methods are mathematical techniques used to specify, verify, and prove the correctness of systems. Temporal logic (TL) is a subset of formal methods that describe sequences of events or states over time. TL provides a structured framework for describing and reasoning about the temporal properties of sequences or processes. It extends classical logic with temporal operators to express propositions about the flow of time. To the best of our knowledge, this is the first work to adapt TL for long-term activity recognition. Although it is not necessary to understand this blog, we recommend that readers refer to <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.youtube.com/playlist?list=PLMBx8HjvK7672qEl6bdnXdzYEbLP_lWPw">this crash course</a> for an in-depth understanding of TL. </p>
+<h2 id="The-NSVS-Pipeline"><a href="#The-NSVS-Pipeline" class="headerlink" title="The NSVS Pipeline"></a>The NSVS Pipeline</h2><p>Coming back to our example of locating the “I am flying” scene from the 3-hour-long Titanic movie, how does NSVS solve it? The query “I’m flying” is first decomposed into semantically meaningful atomic propositions such as “man hugging woman”, “ship on the sea”, and “kiss” from a high-level user query. SOTA vision and vision-language models are then employed to annotate the existence of these atomic propositions in each video frame. Subsequently, we construct an automaton or state machine that models the video’s temporal evolution based on the list of per-frame atomic propositions detected in the video. Finally, we evaluate when and where this automaton satisfies the user’s query. This also provides confidence measures through formal verification which enables the user to further assess the specific scenes pertaining to a complex query in a long video. We further assess this pipeline for long-term reasoning in videos for queries with varying complexity on a suite of experiments.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="figure2.png" alt title="Figure 2" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <div>
+      <strong>Fig. 2 NSVS-TL Pipeline.</strong> The input query — “Find the ‘I’m Flying’ scene from Titanic” — is first decomposed into semantically meaningful atomic propositions such as “man hugging woman”, “ship on the sea”, and “kiss” from a high-level user query. SOTA vision and vision-language models are then employed to annotate the existence of these atomic propositions in each video frame. Subsequently, we construct a probabilistic automaton that models the video’s temporal evolution based on the list of per-frame atomic propositions detected in the video. Finally, we evaluate when and where this automaton satisfies the user’s query. We do this by expressing it in a formal specification language that incorporates temporal logic. The TL equivalent of the above query is ALWAYS (☐) “man hugging woman” UNTIL (𝕌) “ship on the sea” UNTIL (𝕌) “kiss”. Formal verification techniques are utilized on the automaton to retrieve scenes that satisfy the TL specification.
+    </div>
+  </span>
+</div>
+<br>
+
+<h2 id="Long-term-Video-Understanding-Results"><a href="#Long-term-Video-Understanding-Results" class="headerlink" title="Long-term Video Understanding Results"></a>Long-term Video Understanding Results</h2><p>As shown previously, current video-language foundation models such as Video-Llama and ViCLIP excel at scene identification and description in short videos, however, they struggle with long-term and complex temporal queries. Hence, we’ve crafted stronger benchmarks that couple Large Language Models (LLMs) like GPT for reasoning with per-frame annotations from a CV model. Essentially, we replace the sophisticated state machines in NSVS that reason about temporal logic queries with an LLM. This allows us to see how video length impacts scene identification performance when utilizing LLMs.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="figure3.png" alt title="Figure 3" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em><strong>Fig. 3  Performance of NSVS-TL Across Different Video Lengths.</strong> Illustrates the F1 scores for scene retrieval against the video length, fulfilling the ``A until B'' temporal specification.</em>
+  </span>
+</div>
+<br>
+
+<p>Our comprehensive evaluations include scene identification tasks in multi-event sequences with extended temporal events. Specifically, these tasks focus on scenarios where event A persists from the beginning until event B occurs at the end. Therefore, these tasks provide crucial insights into the long-term reasoning capabilities of Large Language Models (LLMs), especially as the temporal distances between events increase. We found that while GPT-3.5 and GPT-3.5 Turbo Instruct struggle with videos longer than 500 seconds, and GPT-4’s performance declines sharply beyond 1000 seconds, our NSVS method maintains consistent accuracy even for videos up to 40 minutes long. This demonstrates NSVS’s robust capability in handling complex, temporally extended video content, potentially opening new avenues for video analysis and understanding.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 90%; max-height: 70%; height: auto;">
+    <img src="figure4.png" alt title="Figure 4" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <em><strong>Fig. 4 Comparative Performance of NSVS-TL Across Complex Temporal Logic Specifications.</strong> Demonstrate NSVS-TL’s performance to benchmarks across different TL specifications.</em>
+  </span>
+</div>
+<br>
+
+<h2 id="The-TLV-Datasets"><a href="#The-TLV-Datasets" class="headerlink" title="The TLV Datasets"></a>The TLV Datasets</h2><p>Existing datasets comprise video annotations for events across short durations. To address this gap in state-of-the-art video datasets for temporally extended activity, we introduce the Temporal Logic Video (TLV) datasets. These datasets come in two flavors: synthetic and real-world. Our synthetic TLV datasets are crafted by cleverly stitching together static images from popular collections like COCO and ImageNet, allowing us to inject a wide array of temporal logic specifications. We’ve also created two video datasets with TL specifications based on real-world autonomous vehicle driving footage from NuScenes and Waymo open-source datasets. We believe that the proposed datasets would enable researchers to benchmark their methods for long-term video understanding and temporal reasoning tasks.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 90%; max-height: 70%; height: auto;">
+    <img src="figure5.png" alt title="Figure 5" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+  </span>
+</div>
+<br>
+
+<h2 id="More-on-NSVS-TL"><a href="#More-on-NSVS-TL" class="headerlink" title="More on NSVS-TL"></a>More on NSVS-TL</h2><p>For more information, come see us at the upcoming ECCV 2024 conference. You can find the paper <a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/pdf/2403.11021">here</a>, the <a target="_blank" rel="external nofollow noopener noreferrer" href="https://utaustin-swarmlab.github.io/nsvs-project-page.github.io/">project webpage</a>, and play with our open-sourced <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UTAustin-SwarmLab/Temporal-Logic-Video-Dataset">datasets</a> and <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UTAustin-SwarmLab/Neuro-Symbolic-Video-Search-Temporal-Logic">code</a>.</p>
+<h2 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h2><figure class="highlight plaintext hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@inproceedings&#123;</span><br><span class="line">@inproceedings&#123;Choi_2024_ECCV,</span><br><span class="line">  author=&#123;Choi, Minkyu and Goel, Harsh and Omama, Mohammad and Yang, Yunhao and Shah, Sahil and Chinchali, Sandeep&#125;,</span><br><span class="line">  title=&#123;Towards Neuro-Symbolic Video Understanding&#125;,</span><br><span class="line">  booktitle=&#123;Proceedings of the European Conference on Computer Vision (ECCV)&#125;,</span><br><span class="line">  month=&#123;September&#125;,</span><br><span class="line">  year=&#123;2024&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/artificial-intelligence/" rel="tag">Artificial Intelligence</a><a class="tag -link-link" href="/tags/computer-vision/" rel="tag">Computer Vision</a><a class="tag -link-link" href="/tags/formal-method/" rel="tag">Formal Method</a><a class="tag -link-link" href="/tags/neuro-symbolic-ai/" rel="tag">Neuro-symbolic AI</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2024/03/16/distill-diffusion/">
+                <i class="fas fa-chevron-left"></i> Distill Diffusion
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2023/08/18/distill-neuro-symbolic-ai/">
+                Distill Neuro-Symbolic AI <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Introduction">
+        <span class="has-mr-6">1</span>
+        <span>Introduction</span>
+        </a></li><li>
+        <a class="is-flex" href="#Why-do-we-need-long-term-reasoning-in-videos">
+        <span class="has-mr-6">2</span>
+        <span>Why do we need long-term reasoning in videos?</span>
+        </a></li><li>
+        <a class="is-flex" href="#Why-do-existing-methods-fail-at-long-term-reasoning-in-videos">
+        <span class="has-mr-6">3</span>
+        <span>Why do existing methods fail at long-term reasoning in videos?</span>
+        </a></li><li>
+        <a class="is-flex" href="#NSVS-Demystified">
+        <span class="has-mr-6">4</span>
+        <span>NSVS - Demystified</span>
+        </a></li><li>
+        <a class="is-flex" href="#The-NSVS-Pipeline">
+        <span class="has-mr-6">5</span>
+        <span>The NSVS Pipeline</span>
+        </a></li><li>
+        <a class="is-flex" href="#Long-term-Video-Understanding-Results">
+        <span class="has-mr-6">6</span>
+        <span>Long-term Video Understanding Results</span>
+        </a></li><li>
+        <a class="is-flex" href="#The-TLV-Datasets">
+        <span class="has-mr-6">7</span>
+        <span>The TLV Datasets</span>
+        </a></li><li>
+        <a class="is-flex" href="#More-on-NSVS-TL">
+        <span class="has-mr-6">8</span>
+        <span>More on NSVS-TL</span>
+        </a></li><li>
+        <a class="is-flex" href="#Citation">
+        <span class="has-mr-6">9</span>
+        <span>Citation</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Neuro Symbolic Video Search with Temporal Logic" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

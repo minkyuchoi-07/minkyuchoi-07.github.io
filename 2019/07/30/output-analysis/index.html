@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Simulation - Output Analysis - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/07/30/output-analysis/">
+
+
+    <meta name="description" content="Ananyzing the ouput of a simulation model is important. How can we be sure that our output is proper and will not hurt an experiment result using those outputs.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simulation - Output Analysis">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2019/07/30/output-analysis/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Ananyzing the ouput of a simulation model is important. How can we be sure that our output is proper and will not hurt an experiment result using those outputs.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+<meta property="article:published_time" content="2019-07-30T20:40:25.000Z">
+<meta property="article:modified_time" content="2024-11-29T18:14:46.443Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Simulation">
+<meta property="article:tag" content="English">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/img/me_main.jpg">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2019/07/30/output-analysis/">
+
+
+<link rel="alternative" href="/feed.xml" title="Simulation - Output Analysis" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="Simulation - Output Analysis" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-30T20:40:25.000Z">2019-07-30</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/3-blog-post/">3. Blog Post</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                Simulation - Output Analysis
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p>Ananyzing the ouput of a simulation model is important. How can we be sure that our output is proper and will not hurt an experiment result using those outputs. </p>
+<span id="more"></span>
+
+<p>Keep this in mind - out is rearely i.i.d. Why do we worry about output? In put processes driving a simulation are random variables. It means our output from the simulation must be random. If we runs the simulation it only yields estimates of measure of system performace, and these estimators are themselves random variables, and are therfore subject to sampling error. Sampling error must be taken into account to make valid inferences concerning system performance. </p>
+<p><strong>Measures of Interest</strong></p>
+<ul>
+<li>Means - what is the mean customer waiting time? </li>
+<li>Variances - how much is the waiting time liable to vary?</li>
+<li>Quantiles - what’s the 99% quantile of the line length in a certain queue?</li>
+<li>Sucess probabilities - will my job be completed on time?</li>
+<li>Would like point estimators and confidence intervals for the above. </li>
+</ul>
+<p>There are two general types of simulations with respect to output analysis. To facilitate the presentation, we identify two types of simulations with respect to output analysis: </p>
+<ul>
+<li><em>Finite-Horizon (Terminating) Simulations</em> - Interested in short-term performance<ul>
+<li>The termincation of finite-horizon simulation takes place at a specific time or is caused by the occurrence of a specific event.</li>
+<li>EX1 - Mass transit system during rush hour</li>
+<li>EX2 - Distribution system over one month</li>
+</ul>
+</li>
+<li><em>Steady-State simulations</em> - Interested in long-term performance<ul>
+<li>The purpose of <em>steady-state simulation</em> is to study the long-run behavior of a system. A performance measure is a steady-state parameter if it is a characteristic of the equilibrium distribution of an output process. </li>
+<li>EX1 - Continuously operating communication system where the objective is the computation of the mean delay of a packet in the long run</li>
+<li>EX2 - Distribution system over a long period of time</li>
+<li>EX3 - Markov chains</li>
+</ul>
+</li>
+</ul>
+<p><strong>Finite-Horizon Simulation</strong></p>
+<p>First thing we have to do to conduct this simulation is getting expected values from replications. So basically, we need to decide a number of independetn replications (IR). IR estimates Var($\bar{Y}_m$) by conducting $r$ independent simulation runs (replications) of the system under study, where each replication consists of $m$ observations. It is easy to make the replications independent - just re-initialize each replication with a different pseudo-random number seed Sample means from replication</p>
+<p>If each run is started under the same operating conditions (e.g., all queues empty and idle), then the replication sample means $Z_1, Z_2, . . . , Z_r$ are $i.i.d.$ random variables. </p>
+<p><img src="/2019/07/30/output-analysis/02.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/04.png" alt></p>
+<p>Suppose we want to estimate the expected average waiting time for the first m = 5000 customers at the bank. We make r = 5 independent replications of the system, each initialized empty and<br>idle and consisting of 5000 waiting times. The resulting replicate means are:</p>
+<p><img src="/2019/07/30/output-analysis/01.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/05.png" alt></p>
+<p><strong>Steady-state simulation</strong></p>
+<p>How about we need to simulate the entire time line? We should consider to use a steady-state simulation. Estimate some parameter of interest, e.g., the mean customer waiting time or the expected profit produced by a certain factory configuration. In particular, suppose the mean of this output is the unknown quantity $\mu$. We’ll use the sample mean $\bar{Y}_n$ to estimate $\mu$</p>
+<p>We must accompany the value of any point extimator with a measure of its variance. In stead of Var($\bar{Y}_n)$ we canestimate the <em>variance parameter</em>,</p>
+<p><img src="/2019/07/30/output-analysis/06.png" alt></p>
+<p>Thus, $\sigma^2$ is imply the sume of all covariances! $\sigma^2$ pops up all over the place: simulation output analysis, Brownian motions, fnancial engineering application, etc. </p>
+<p><img src="/2019/07/30/output-analysis/07.png" alt></p>
+<p>Many methods for estimating $\sigma^2$ and for conducting steady-state output analysis in general:</p>
+<ol>
+<li><p>Batch means</p>
+<p>The method of <em>batch means</em> (BM) is often used to estimate $\sigma^2$ and to calculate confidence intervals for $\mu$</p>
+<p>Idea: Divide one long simulation run into a number of contiguous batches, and then appeal to a central limit theorem to assume that the resulting batch sample means are approximately i.i.d. normal. </p>
+<p>In particular, suppose that we partition $Y_1, Y_2, . . . , Y_n$ into $b$ nonoverlapping, contiguous batches, each consisting of $m$ observations (assume that $n = bm$) </p>
+<p><img src="/2019/07/30/output-analysis/08.png" alt></p>
+<p>The $i$th batch mean is the sample mean of the $m$ observations from batch $i = 1, 2, . . . , b$</p>
+<p><img src="/2019/07/30/output-analysis/10.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/11.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/12.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/13.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/14.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/15.png" alt></p>
+</li>
+</ol>
+<p>$E[H]$ decreases in b, though it smooths out around b = 30. A common recommendation is to take b =. 30 and concentrate on increasing the batch size m as much as possible. </p>
+<p>The technique of BM is intuitively appealing and easy to understand. </p>
+<p>But problems can come up if the Yj ’s are not stationary (e.g., if significant initialization bias is present), if the batch means are not normal, or if the batch means are not independent. </p>
+<p>If any of these assumption violations exist, poor confidence interval coverage may result — unbeknownst to the analyst.</p>
+<p>To ameliorate the initialization bias problem, the user can truncate some of the data or make a long run </p>
+<p>In addition, the lack of independence or normality of the batch means can be countered by increasing the batch size m.</p>
+<p><img src="/2019/07/30/output-analysis/16.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/17.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/18.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/19.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/20.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/21.png" alt></p>
+<p><img src="/2019/07/30/output-analysis/22.png" alt></p>
+<h5 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h5><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.computerhope.com/jargon/s/stdin.htm">Thumnail</a><br>Georgia Tech’s <code>ISYE6644</code> class content</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/english/" rel="tag">English</a><a class="tag -link-link" href="/tags/simulation/" rel="tag">Simulation</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey article-nav-prev" href="/2019/11/19/sftp/">
+                <i class="fas fa-chevron-left"></i> Secure File Transfer Protocol (SFTP)
+            </a>
+        </div>
+        
+        <div class="with-prev card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2019/07/23/input-analysis/">
+                Simulation - Input Analysis <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Reference">
+        <span class="has-mr-6">1</span>
+        <span>Reference</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="Simulation - Output Analysis" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>
