@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond - Minkyu Choi&#39;s Personal Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/11/30/peernet/">
+
+
+    <meta name="description" content="Aditya Narayanan, Pranav Kasibhatla, Minkyu Choi, Po-han Li, Ruihan Zhao, Sandeep ChinchaliInternational Conference on Intelligent Robots and Systems (IROS), 2024. This post introduces PEERNet, a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond">
+<meta property="og:url" content="https://minkyuchoi-07.github.io/2024/11/30/peernet/index.html">
+<meta property="og:site_name" content="Minkyu Choi&#39;s Personal Webpage">
+<meta property="og:description" content="Aditya Narayanan, Pranav Kasibhatla, Minkyu Choi, Po-han Li, Ruihan Zhao, Sandeep ChinchaliInternational Conference on Intelligent Robots and Systems (IROS), 2024. This post introduces PEERNet, a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://minkyuchoi-07.github.io/2024/11/29/peernet/thumbnail.png">
+<meta property="article:published_time" content="2024-11-30T00:05:21.000Z">
+<meta property="article:modified_time" content="2024-11-29T19:34:20.928Z">
+<meta property="article:author" content="Minkyu Choi">
+<meta property="article:tag" content="Artificial Intelligence">
+<meta property="article:tag" content="Networked Robotics">
+<meta property="article:tag" content="Edge Computing">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://minkyuchoi-07.github.io/2024/11/29/peernet/thumbnail.png">
+
+
+
+
+    <meta name="naver-site-verification" content="48beb5f578053c0c5f127b4198a57270bad360ca">
+
+
+<link rel="canonical" href="https://minkyuchoi-07.github.io/2024/11/30/peernet/">
+
+
+<link rel="alternative" href="/feed.xml" title="PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond" type="application/xml">
+
+
+
+<link rel="icon" href="/img/favicon.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SNX6P4Y3TY"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SNX6P4Y3TY');
+</script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9731816337848054", 
+    enable_page_level_ads: true
+  });
+</script>
+
+<meta name="generator" content="Hexo 5.4.2"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/" data-link-name="navigatorLogo">
+            
+                <img src="/img/logo.png" alt="PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a data-link-name="navigator" class="navbar-item" href="/">Home</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/1-research">Research</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/2-project">Project</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/categories/3-blog-post">Blog</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/tags">Tags</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/cv">CV</a>
+                
+                <a data-link-name="navigator" class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-10-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span class="image is-7by1">
+            <img class="thumbnail" src="/2024/11/29/peernet/thumbnail.png" alt="PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2024-11-30T00:05:21.000Z">2024-11-29</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/1-research/">1. Research</a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-bold">
+            
+                PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond
+            
+        </h1>
+        
+        <hr>
+        
+        <div class="content">
+            <p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/pdf/2409.06078"><img src="https://img.shields.io/badge/Paper-PDF-green.svg" alt="Paper"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://arxiv.org/pdf/2409.06078"><img src="https://img.shields.io/badge/arXiv-2403.11021-b31b1b.svg" alt="arXiv"></a> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UTAustin-SwarmLab/PEERNet"><img src="https://img.shields.io/badge/Code-PEERNet-blue.svg" alt="GitHub"></a> </p>
+<p>Aditya Narayanan, Pranav Kasibhatla, <strong>Minkyu Choi</strong>, Po-han Li, Ruihan Zhao, Sandeep Chinchali<br><em>International Conference on Intelligent Robots and Systems (IROS), 2024</em>.</p>
+<p>This post introduces <em>PEERNet</em>, a Python package for real-time benchmarking of networked robotic systems. It provides concise and modular methods for performance analysis of the entire system stack.</p>
+<span id="more"></span>
+
+
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="https://hackmd.io/_uploads/ryxuxVStA.png" " alt title="Figure 1" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <div>
+      <strong>Fig. 1 PEERNet is an end-to-end profiling tool for networked robotics. It excels in ease of deployment across various platforms and offers extensive benchmarking capabilities.</strong>
+    </div>
+  </span>
+</div>
+<br>
+
+<h2 id="Why-benchmarking-networked-robotics"><a href="#Why-benchmarking-networked-robotics" class="headerlink" title="Why benchmarking networked robotics?"></a>Why benchmarking networked robotics?</h2><p>Consider a mobile robot running a Machine Learning (ML) pipeline for perception, localization, and path planning. Here and in many other practical scenarios, offloading computationally expensive ML tasks to a cloud server over public networks is a viable optimization.</p>
+<p>Introducing offloaded computation brings up several system-design questions which require hard statistics and real data to answer:</p>
+<ul>
+<li><em>Which ML model maximizes decision accuracy while minimizing end-to-end latency?</em></li>
+<li><em>How much better is the end-to-end latency when using a 5G network as opposed to a 4G LTE network?</em></li>
+<li><em>How does data compression affect end-to-end latency in offloaded inference? Is the overhead of compression worth the faster networking latency? Does that answer change when using a 5G network as opposed to LTE or WiFi?</em></li>
+</ul>
+<p>More generally, real-time benchmarking is required for:</p>
+<ol>
+<li><p><strong>Deployment in the real world:</strong> Before a robotic system can be deployed, decisions need to be made on hardware, ML models, networking protocols, etc.–these decisions must be informed by real-world statistics.</p>
+</li>
+<li><p><strong>Debugging exising systems:</strong> Finding and removing bottlenecks in existing robotic systems requires hard numbers. ML model latency, network delay, or even hardware limitations could all be a system’s bottleneck.</p>
+</li>
+<li><p><strong>Optimizing networked robotics:</strong> Many novel techniques for optimizing data sharing, offloading policies, and distributed ML are in active development. Assessing the performance of new algorithms on real hardware is essential before optimizations can be applied.</p>
+</li>
+</ol>
+<h2 id="What-makes-benchmarking-non-trivial"><a href="#What-makes-benchmarking-non-trivial" class="headerlink" title="What makes benchmarking non-trivial?"></a>What makes benchmarking non-trivial?</h2><p>Benchmarking networked robotics is fundamentally more challenging than simply timing ML models and testing sensors. The incorporation of networks into robotic systems significantly complicates the benchmarking problem by introducing:</p>
+<ol>
+<li><p><strong>Stochastic delay</strong>: Network delays are highly stochastic and system dependent. Delays are hard to predict and often change significantly from one setup to another.</p>
+</li>
+<li><p><strong>Network Timing and Asymmetric Delay</strong>: Profiling networking operations by itself is difficult due to imperfect clock synchronization. Round-trip times, while commonly used, are of little use in networked robotic systems, where devices rarely upload and download similar amounts of data. For example, our mobile robot from earlier may upload gigabytes of images and lidar scans while downloading only bytes of labels. Hence, round-trip delay fails to provide any meaningful insight into this system.</p>
+</li>
+</ol>
+<h2 id="Introducing-PEERNet"><a href="#Introducing-PEERNet" class="headerlink" title="Introducing PEERNet"></a>Introducing PEERNet</h2><p>We present PEERNet, the <strong>P</strong>rofiler for <strong>E</strong>nd-to-<strong>E</strong>nd <strong>R</strong>eal-time <strong>Net</strong>worked Robotics. PEERNet is a highly modular and extensible package for profiling networked robotic systems, complete with one-way network delay estimation. PEERNet interfaces with industry standard hardware and software such as Nvidia embedded GPUs, Robot Operating System (ROS), and Zero MQ (ZMQ). PEERNet exposes a CLI for rapid benchmarking of offloaded inference systems, and we demonstrate PEERNet’s ease of use and versatility.</p>
+<p>At a high level, PEERNet focuses on profiling networked robotics by looking at the life-cycle of data. When sensors sample data, serializable logging metadata is attached, and propagated through the system normally. This metadata includes all necessary information for tracking and profiling sampling time, ML inference latency, and one-way network delay.</p>
+<h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><p>We illustrate and validate PEERNet by implementing and profiling three networked robotic systems. All of our experiments are conducted on physical hardware and live wireless networks, demonstrating that PEERNet is modular, robust, and capable of precisely profiling various systems.</p>
+<h3 id="Benchmarking-offloaded-inference"><a href="#Benchmarking-offloaded-inference" class="headerlink" title="Benchmarking offloaded inference"></a>Benchmarking offloaded inference</h3><p>Our first experiment demonstrates how PEERNet can be used to profile and understand offloaded image classification, such as in our mobile robot example. By precisely quantifying latency costs across local and cloud hardware and for various model sizes, PEERNet allows for intelligent device/model selection.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="https://hackmd.io/_uploads/S1pz-4HK0.png" " alt title="Figure 2" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <div>
+      <strong>Fig. 2 PEERNet precisely quantifies inference costs at the edge and in the cloud.</strong> For the EfficientNetV2 family of models, local computation on an edge device is roughly 2.5 times as slow as offloaded computation to a cloud server, but cloud servers display a high variance in inference latency.
+    </div>
+  </span>
+</div>
+<br>
+
+<h3 id="Identifying-non-intuitive-behavior-in-Vison-Language-Models"><a href="#Identifying-non-intuitive-behavior-in-Vison-Language-Models" class="headerlink" title="Identifying non-intuitive behavior in Vison Language Models"></a>Identifying non-intuitive behavior in Vison Language Models</h3><p>In our second experiment, we use PEERNet to explore inference with Vision Language Models (VLMs) at the edge, an emerging task in robotic pipelines. We show that PEERNet is capable of identifying non-intuitive behaviors in VLM inference, such as a bimodal output token distribution.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="https://hackmd.io/_uploads/BJoQ-4BFC.png" " alt title="Figure 3" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <div>
+      <strong>Fig. 3 Profiling with PEERNet reveals non-intuitive behavior of a vision language model.</strong> Responses to a single prompt vary in length, with two centers in the distribution of output length. Consequently, the inference latency is bimodal.
+    </div>
+  </span>
+</div>
+<br>
+
+<h3 id="Optimizing-teleoperation-of-a-robot-arm"><a href="#Optimizing-teleoperation-of-a-robot-arm" class="headerlink" title="Optimizing teleoperation of a robot arm"></a>Optimizing teleoperation of a robot arm</h3><p>Our final experiment applies PEERNet to benchmark a full teleoperation pipeline. We explore all combinations of edge device, cloud compute, compression, and network on a teleoperated robot arm performing a pick-and-place task. We demonstrate that profiling with PEERNet solves the hardware selection problem, and is easily applicable to existing robotic pipelines.</p>
+<div style="text-align: center; display: flex; justify-content: center; align-items: center; min-height: 20vh; flex-direction: column;">
+  <span style="max-width: 70%; max-height: 70%; height: auto;">
+    <img src="https://hackmd.io/_uploads/Hy9EbNBFC.png" " alt title="Figure 4" style="width: 100%; height: auto;">
+  </span>
+  <span style="max-width: 70%; text-align: left; display: block; margin-top: 10px;">
+    <div>
+      <strong>Fig. 4 Profiling with PEERNet reveals latency tradeoffs and costs in end-to-end teleoperation pipelines.</strong> PEERNet identifies the combination of an RTX3090 GPU, local image resizing, and a LAN to be the most performative teleoperation configuration, with lower end-to-end latency than local inference.
+    </div>
+  </span>
+</div>
+<br>
+
+<h2 id="Looking-to-try-PEERNet-out"><a href="#Looking-to-try-PEERNet-out" class="headerlink" title="Looking to try PEERNet out?"></a>Looking to try PEERNet out?</h2><p>Our code is open-source! You can find it at github.com/UTAustin-SwarmLab/PEERNet</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase post-tags">
+            <div class="level-start">
+                <div class="tags">
+                    <span class="is-size-6 has-text-grey has-mr-7 tag-icon"><i class="fas fa-tag"></i></span>
+                    <a class="tag -link-link" href="/tags/artificial-intelligence/" rel="tag">Artificial Intelligence</a><a class="tag -link-link" href="/tags/edge-computing/" rel="tag">Edge Computing</a><a class="tag -link-link" href="/tags/networked-robotics/" rel="tag">Networked Robotics</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5d0a1a560345900012ec77c4&amp;product=inline-share-buttons" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-item card to-home">
+            <a data-link-name="pagenator" class="level level-item has-link-grey" href="/">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+        
+        <div class="level-end card">
+            <a data-link-name="pagenator" class="level level-item has-link-grey  article-nav-next" href="/2024/07/15/diffusion-based-video-compression/">
+                Diffusion Based Video Compression <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-3 column-right is-sticky">
+    
+        
+<div class="card widget" id="toc">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Catalogue
+            </h3>
+            <ul class="menu-list"><li>
+        <a class="is-flex" href="#Why-benchmarking-networked-robotics">
+        <span class="has-mr-6">1</span>
+        <span>Why benchmarking networked robotics?</span>
+        </a></li><li>
+        <a class="is-flex" href="#What-makes-benchmarking-non-trivial">
+        <span class="has-mr-6">2</span>
+        <span>What makes benchmarking non-trivial?</span>
+        </a></li><li>
+        <a class="is-flex" href="#Introducing-PEERNet">
+        <span class="has-mr-6">3</span>
+        <span>Introducing PEERNet</span>
+        </a></li><li>
+        <a class="is-flex" href="#Experiments">
+        <span class="has-mr-6">4</span>
+        <span>Experiments</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#Benchmarking-offloaded-inference">
+        <span class="has-mr-6">4.1</span>
+        <span>Benchmarking offloaded inference</span>
+        </a></li><li>
+        <a class="is-flex" href="#Identifying-non-intuitive-behavior-in-Vison-Language-Models">
+        <span class="has-mr-6">4.2</span>
+        <span>Identifying non-intuitive behavior in Vison Language Models</span>
+        </a></li><li>
+        <a class="is-flex" href="#Optimizing-teleoperation-of-a-robot-arm">
+        <span class="has-mr-6">4.3</span>
+        <span>Optimizing teleoperation of a robot arm</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#Looking-to-try-PEERNet-out">
+        <span class="has-mr-6">5</span>
+        <span>Looking to try PEERNet out?</span>
+        </a></li></ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/1-research/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">1. Research</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/2-project/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">2. Project</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/3-blog-post/" data-link-name="category">
+            <span class="level-start">
+                <span class="level-item">3. Blog Post</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">15</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/img/logo.png" alt="PEERNet: Benchmarking Networked Robotics on Wifi, 5G, and Beyond" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2024 Minkyu Choi&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="external nofollow noopener noreferrer">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Google Scholar" href="https://scholar.google.com/citations?user=ai4daB8AAAAJ&amp;hl=en" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fas fa-graduation-cap"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="LinkedIn" href="https://www.linkedin.com/in/mchoi07/" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-linkedin"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="GitHub" href="https://github.com/minkyu-choi07" rel="external nofollow noopener noreferrer">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>console.log("env -> development");</script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="external nofollow noopener noreferrer" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+<script src="/js/gaevents.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>
