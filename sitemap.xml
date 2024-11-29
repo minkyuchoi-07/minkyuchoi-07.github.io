@@ -2,14 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/2024/11/30/peernet/</loc>
+    <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
     
     <lastmod>2024-11-29</lastmod>
     
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/2024/03/16/neuro-symbolic-video-search/</loc>
+    <loc>https://minkyuchoi-07.github.io/about/index.html</loc>
+    
+    <lastmod>2024-11-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/2024/11/30/peernet/</loc>
     
     <lastmod>2024-11-29</lastmod>
     
@@ -24,13 +31,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/cv/index.html</loc>
-    
-    <lastmod>2024-11-29</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/about/index.html</loc>
     
     <lastmod>2024-11-29</lastmod>
     
@@ -200,13 +200,6 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
-    <lastmod>2024-11-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://minkyuchoi-07.github.io/tags/security/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
@@ -215,6 +208,13 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/tags/korean/</loc>
+    <lastmod>2024-11-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://minkyuchoi-07.github.io/tags/data-engineering/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -307,6 +307,13 @@
 
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <lastmod>2024-11-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
@@ -315,13 +322,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
-    <lastmod>2024-11-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-11-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
