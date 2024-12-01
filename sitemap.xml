@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/about/index.html</loc>
+    <loc>https://minkyuchoi-07.github.io/2024/12/01/peernet/</loc>
     
     <lastmod>2024-12-01</lastmod>
     
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/2024/12/01/peernet/</loc>
+    <loc>https://minkyuchoi-07.github.io/about/index.html</loc>
     
     <lastmod>2024-12-01</lastmod>
     
@@ -51,14 +51,14 @@
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/2023/07/01/multi-agent-reinforcement-learning-with-epistemic-priors/</loc>
+    <loc>https://minkyuchoi-07.github.io/2023/04/02/distill-rl/</loc>
     
     <lastmod>2024-11-29</lastmod>
     
   </url>
   
   <url>
-    <loc>https://minkyuchoi-07.github.io/2023/04/02/distill-rl/</loc>
+    <loc>https://minkyuchoi-07.github.io/2023/07/01/multi-agent-reinforcement-learning-with-epistemic-priors/</loc>
     
     <lastmod>2024-11-29</lastmod>
     
@@ -307,6 +307,13 @@
 
   
   <url>
+    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://minkyuchoi-07.github.io/categories/3-blog-post/</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>daily</changefreq>
@@ -315,13 +322,6 @@
   
   <url>
     <loc>https://minkyuchoi-07.github.io/categories/1-research/</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://minkyuchoi-07.github.io/categories/2-project/</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
